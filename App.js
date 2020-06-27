@@ -1,23 +1,17 @@
-import React, { useEffect } from 'react';
-import { View, Text, Alert } from 'react-native';
+import React from 'react';
+import Routes from './src/routes';
+import { NavigationContainer } from '@react-navigation/native';
+import { AuthProvider } from './src/contexts/auth';
 
-import messaging from '@react-native-firebase/messaging';
+import 'intl'
+import 'intl/locale-data/jsonp/pt-BR'
 
-const App = () => {
-
-  useEffect(() => {
-    const unsubscribe = messaging().onMessage(async remoteMessage => {
-      Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
-    });
-
-    return unsubscribe;
-  }, []);
-
+export default function App() {
   return (
-    <View>
-      <Text>Hello, World!</Text>
-    </View>
-  )
+    <NavigationContainer>
+      <AuthProvider>
+        <Routes />
+      </AuthProvider>
+    </NavigationContainer>
+  );
 }
-
-export default App;
