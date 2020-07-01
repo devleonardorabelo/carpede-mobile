@@ -6,7 +6,7 @@ import styles from "../global";
 
 export function Button(props) {
 
-    const [ color, setColor ] = useState('#639DFF');
+    const [ color, setColor ] = useState('#FF4700');
     const [ content, setContent ] = useState(<Text style={styles.textSemiBold}>{props.title}</Text>);
     const [ disabled, setDisabled ] = useState(false);
 
@@ -24,7 +24,7 @@ export function Button(props) {
                 setDisabled(true);
                 break;
             default:
-                setColor('#639DFF');
+                setColor('#FF4700');
                 setContent(<Text style={[styles.textSemiBold, { color: '#FFFFFF' }]}>{props.title}</Text>);
                 setDisabled(false);
         }
@@ -79,6 +79,7 @@ export function ActionButton(props) {
                 props.title && { backgroundColor: null }
             ]}
             onPress={props.action}
+            disabled={props.disabled}
         >
             <MI
                 name={props.icon}
@@ -118,7 +119,7 @@ export function FilterButton(props) {
                 }}
                 name={props.subIcon}
                 size={24}
-                color='#639DFF'
+                color='#FF4700'
 
             />
         </TouchableOpacity>

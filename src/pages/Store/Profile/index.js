@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { SafeAreaView, ScrollView } from 'react-native';
+import { SafeAreaView, ScrollView, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import apiReq from '../../../services/reqToken';
 import AuthContext from '../../../contexts/auth';
-import { openPicker, uploadImage } from '../../../utils/ImagePicker';
+import { openPicker } from '../../../utils/ImagePicker';
+import { uploadImage } from '../../../services/uploadImage';
 import { format } from '@buttercup/react-formatted-input';
 import { WhatsappFormat } from '../../../utils/treatString';
 
@@ -14,6 +15,7 @@ import { Header } from '../../../components/Header';
 import { Input, TextArea } from '../../../components/Input';
 import { Avatar } from '../../../components/Item';
 import { Button } from '../../../components/Button';
+import { ChooseImageMode } from '../../../components/Modal';
 
 export default function Profile() {
 
@@ -30,11 +32,14 @@ export default function Profile() {
     const [ alert, setAlert ] = useState();
     const [ loadedPage, setLoadedPage ] = useState(false);
     const [ status, setStatus ] = useState();
+    const [ modalActived, setModalActived ] = useState(false);
 
-    async function getImage() {
-        let picker = await openPicker();
+    async function getImage(mode) {
+        let picker = await openPicker(mode);
+        setModalActived(false);
         if(picker.cancelled) return;
         setUploading(true);
+
         const upload = await uploadImage(picker.path, 'avatar');
         setAvatar({ uri: upload })
         setUploading(false);
@@ -109,7 +114,7 @@ export default function Profile() {
                     image={avatar}
                     title={name}
                     subtitle={whatsapp.formatted}
-                    action={getImage}
+                    action={() =>  setModalActived(true)}
                     icon='image'
                     loading={uploading}
                     transparent={avatar.uri}
@@ -159,7 +164,13 @@ export default function Profile() {
                 />
 
             </ScrollView>
-        
+            <ChooseImageMode 
+                title='Escolha uma opção' 
+                actionClose={() => setModalActived(false)}
+                actionCamera={() => getImage('camera')}
+                actionGallery={() => getImage('gallery')}
+                active={modalActived}
+            />
         </SafeAreaView>
     )        
 }

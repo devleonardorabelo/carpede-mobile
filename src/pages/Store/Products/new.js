@@ -4,13 +4,15 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 
 import apiReq from '../../../services/reqToken';
 import AuthContext from '../../../contexts/auth';
-import { openPicker, uploadImage } from '../../../utils/ImagePicker';
+import { openPicker } from '../../../utils/ImagePicker';
+import { uploadImage } from '../../../services/uploadImage';
 
 import styles from '../../../global';
 import { Header } from '../../../components/Header';
 import { PreviewImage } from '../../../components/Image';
 import { Input, Select } from '../../../components/Input';
 import { Button } from '../../../components/Button';
+import { ChooseImageMode } from '../../../components/Modal';
 
 export default function NewProduct() {
 
@@ -21,16 +23,19 @@ export default function NewProduct() {
     const [ image, setImage ] = useState({});
     const [ uploading, setUploading ] = useState(false);
     const [ name, setName ] = useState('');
-    const [ category, setCategory ] = useState('');
+    const [ category, setCategory ] = useState({});
     const [ description, setDescription ] = useState('');
     const [ price, setPrice ] = useState('');
     const [ alert, setAlert ] = useState('');
     const [ status, setStatus ] = useState(false);
+    const [ modalActived, setModalActived ] = useState(false);
 
-    async function getImage() {
-        let picker = await openPicker();
+    async function getImage(mode) {
+        let picker = await openPicker(mode);
+        setModalActived(false);
         if(picker.cancelled) return;
         setUploading(true);
+
         const upload = await uploadImage(picker.path, store.store_id);
         setImage({ uri: upload })
         setUploading(false);
@@ -81,7 +86,7 @@ export default function NewProduct() {
                 
                 <PreviewImage
                     image={image}
-                    action={getImage}
+                    action={() => setModalActived(true)}
                     icon='image-outline'
                     loading={uploading}
                 />
@@ -136,8 +141,14 @@ export default function NewProduct() {
                     disabled={uploading} 
                     disabledText='Carregando Imagem...'
                 />      
-            
             </ScrollView>
+            <ChooseImageMode 
+                title='Escolha uma opção' 
+                actionClose={() => setModalActived(false)}
+                actionCamera={() => getImage('camera')}
+                actionGallery={() => getImage('gallery')}
+                active={modalActived}
+            />
         </SafeAreaView>
     )
 }

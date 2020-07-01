@@ -1,23 +1,21 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { FlatList, SafeAreaView, View } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { FlatList, SafeAreaView, View, Image, Text } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
-import AuthContext from '../../../contexts/auth';
 import apiReq from '../../../services/reqToken';
 
 import styles from '../../../global';import Skeleton from '../../../components/Skeleton';
 import { Header } from '../../../components/Header';
 import { Card } from '../../../components/Item';
 import { ActionButton, FilterButton } from '../../../components/Button';
-import { AlertNotification } from '../../../components/Alert';
 
+import img_more from '../../../assets/illustrations/more.png'
 
 export default function Categories() {
 
     const navigation = useNavigation();
     const { params } = useRoute();
     let route = params;
-    const { notification } = useContext(AuthContext);
     
     const [ categories, setCategories ] = useState([]);
     const [ sort, setSort ] = useState(1);
@@ -95,11 +93,6 @@ export default function Categories() {
     return(
 
         <SafeAreaView style={styles.container}>
-            <AlertNotification
-				title={notification.title}
-				text={notification.text}
-				show={notification.show}
-			/>
             <Header title={'categorias'}>
                 <FilterButton
                     action={() => {
@@ -133,8 +126,9 @@ export default function Categories() {
                         price={categories.price}
                     />
                 )}
-                ListEmptyComponent={
-                    loading &&
+                ListEmptyComponent={<>
+                    
+                    {loading &&
                         <Skeleton>
                             <Card style={{ backgroundColor: '#F5F5F5' }} />
                             <Card style={{ backgroundColor: '#F5F5F5' }} />
@@ -147,7 +141,15 @@ export default function Categories() {
                             <Card style={{ backgroundColor: '#F5F5F5' }} />
                             <Card style={{ backgroundColor: '#F5F5F5' }} />
                         </Skeleton>
-                }  
+                    } 
+                    {!loading && categories.length == 0 &&
+                        <View style={{ paddingTop: 16 }}>
+                            <Text style={[styles.subtitle, { marginBottom: 10 }]}>Adicione sua primeira Categoria</Text>
+                            <Text style={styles.text}>As categorias servem para organizar a lista dos seus produtos. Clique abaixo e adicione sua primeira categoria.</Text>
+                            <Image style={styles.illustration} source={img_more}/>
+                        </View>
+                    }
+                </>}  
             />
 
             <View style={styles.absoluteBottomRight}>

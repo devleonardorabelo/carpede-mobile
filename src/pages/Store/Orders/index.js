@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, FlatList, TouchableOpacity, View, Text } from 'react-native';
+import { SafeAreaView, FlatList, TouchableOpacity, View, Text, Image } from 'react-native';
 import apiReq from '../../../services/reqToken';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
@@ -7,6 +7,10 @@ import styles from '../../../global';
 import Skeleton from '../../../components/Skeleton';
 import { Header } from '../../../components/Header';
 import { CardOrder, Card } from '../../../components/Item';
+
+import img_delivery from '../../../assets/illustrations/delivery.png';
+import img_sad_face from '../../../assets/illustrations/sad_face.png';
+import img_happy_face from '../../../assets/illustrations/happy_face.png';
 
 export default function Order() {
 
@@ -32,11 +36,10 @@ export default function Order() {
             params: { page, status },
         });
 
-        if(data.length) {
-            setOrders([...orders, ...data]);
-            setTotal(headers['x-total-count']);
-            setPage(page + 1);
-        }
+        setOrders([...orders, ...data]);
+        setTotal(headers['x-total-count']);
+        setPage(page + 1);
+        
 
         setLoading(false);
 
@@ -82,7 +85,7 @@ export default function Order() {
                 <TouchableOpacity
                     style={[
                         styles.buttonTag,
-                        status == 'waiting' && { backgroundColor: '#639DFF' }
+                        status == 'waiting' && { backgroundColor: '#FF4700' }
                     ]}
                     onPress={() => loadOrdersWithParams('waiting')}
                 >
@@ -93,7 +96,7 @@ export default function Order() {
                 <TouchableOpacity
                     style={[
                         styles.buttonTag,
-                        status == 'done' && { backgroundColor: '#639DFF' }
+                        status == 'done' && { backgroundColor: '#FF4700' }
                     ]}
                     onPress={() => loadOrdersWithParams('done')}
                 >
@@ -104,7 +107,7 @@ export default function Order() {
                 <TouchableOpacity
                     style={[
                         styles.buttonTag,
-                        status == 'lost' && { backgroundColor: '#639DFF' }
+                        status == 'lost' && { backgroundColor: '#FF4700' }
                     ]}
                     onPress={() => loadOrdersWithParams('lost')}
                 >
@@ -134,21 +137,43 @@ export default function Order() {
                         status={[status, order.date, order.deliveredAt]}
                     />
                 )}
-                ListEmptyComponent={
-                    loading &&
+                ListEmptyComponent={<>
+                    {loading &&
                         <Skeleton>
-                            <Card style={{ backgroundColor: '#F5F5F5' }} />
-                            <Card style={{ backgroundColor: '#F5F5F5' }} />
-                            <Card style={{ backgroundColor: '#F5F5F5' }} />
-                            <Card style={{ backgroundColor: '#F5F5F5' }} />
-                            <Card style={{ backgroundColor: '#F5F5F5' }} />
-                            <Card style={{ backgroundColor: '#F5F5F5' }} />
-                            <Card style={{ backgroundColor: '#F5F5F5' }} />
-                            <Card style={{ backgroundColor: '#F5F5F5' }} />
-                            <Card style={{ backgroundColor: '#F5F5F5' }} />
-                            <Card style={{ backgroundColor: '#F5F5F5' }} />
-                        </Skeleton> 
-                }
+                            <Card style={{ backgroundColor: '#F5F5F5' }} title='...' />
+                            <Card style={{ backgroundColor: '#F5F5F5' }} title='...' />
+                            <Card style={{ backgroundColor: '#F5F5F5' }} title='...' />
+                            <Card style={{ backgroundColor: '#F5F5F5' }} title='...' />
+                            <Card style={{ backgroundColor: '#F5F5F5' }} title='...' />
+                            <Card style={{ backgroundColor: '#F5F5F5' }} title='...' />
+                            <Card style={{ backgroundColor: '#F5F5F5' }} title='...' />
+                            <Card style={{ backgroundColor: '#F5F5F5' }} title='...' />
+                            <Card style={{ backgroundColor: '#F5F5F5' }} title='...' />
+                            <Card style={{ backgroundColor: '#F5F5F5' }} title='...' />
+                        </Skeleton>
+                    }
+                    {!loading && orders.length === 0 && status == 'waiting' && page != 1 &&
+                        <View style={{ paddingTop: 16 }}>
+                            <Text style={[styles.subtitle, { marginBottom: 10 }]}>Nenhum Pedido para Hoje ainda.</Text>
+                            <Text style={styles.text}>Quando chegar um novo Pedido você será notificado, fique atento!</Text>
+                            <Image style={styles.illustration} source={img_delivery}/>
+                        </View>
+                    }
+                    {!loading && orders.length === 0 && status == 'done' && page != 1 &&
+                        <View style={{ paddingTop: 16 }}>
+                            <Text style={[styles.subtitle, { marginBottom: 10 }]}>Você ainda não entregou nenhum.</Text>
+                            <Text style={styles.text}>Calma, você ainda não entregou nenhum pedido ainda mas é temporário! Espalhe por ai que você tem um App de Delivery e rapidamente você vai ter vários!</Text>
+                            <Image style={styles.illustration} source={img_sad_face}/>
+                        </View>
+                    }
+                    {!loading && orders.length === 0 && status == 'lost' && page != 1 &&
+                        <View style={{ paddingTop: 16 }}>
+                            <Text style={[styles.subtitle, { marginBottom: 10 }]}>Nenhum pedido foi perdido.</Text>
+                            <Text style={styles.text}>Que ótimo! Você ainda não deixou passar nenhum pedido, continue assim!</Text>
+                            <Image style={styles.illustration} source={img_happy_face}/>
+                        </View>
+                    }
+                </>}
             />     
 
 

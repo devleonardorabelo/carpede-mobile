@@ -1,27 +1,26 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { FlatList, SafeAreaView, View, Text, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { FlatList, SafeAreaView, View, Text, TouchableOpacity, Image } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
-import AuthContext from '../../../contexts/auth';
 import apiReq from '../../../services/reqToken';
 
 import styles from '../../../global';
 import Skeleton from '../../../components/Skeleton';
 import { Header } from '../../../components/Header';
 import { Card } from '../../../components/Item';
-import { ActionButton, FilterButton } from '../../../components/Button';
-import { AlertNotification } from '../../../components/Alert';
+import { ActionButton, FilterButton, Button } from '../../../components/Button';
+
+import img_more from '../../../assets/illustrations/more.png'
 
 export default function Products() {
 
     const navigation = useNavigation();
     const { params } = useRoute();
     let route = params;
-    const { notification } = useContext(AuthContext);
 
     const [ products, setProducts ] = useState([]);
-    const [ categories, setCategories ] = useState(null);
-    const [ category, setCategory ] = useState(null);
+    const [ categories, setCategories ] = useState([]);
+    const [ category, setCategory ] = useState({});
     const [ sort, setSort ] = useState(1);
     const [ total, setTotal ] = useState(0);
     const [ page, setPage ] = useState(1);
@@ -35,16 +34,18 @@ export default function Products() {
 
         setLoading(true);
 
-        const { data, headers } = await apiReq.get('products',{ 
-            params: { page, category },
-        });
+        console.log(apiReq)
 
-        if(data.products.length) {
-            setProducts([...products, ...data.products]);
-            setTotal(headers['x-total-count']);
-            setPage(page + 1);
-            setCategories(data.categories);
-        }
+        const { data, headers } = await apiReq.get('products',{ 
+            params: { page, category: category._id },
+        });   
+
+        setProducts([...products, ...data.products]);
+
+        setTotal(headers['x-total-count']);
+        setPage(page + 1);
+
+        setCategories(data.categories);
 
         setLoading(false);
     }
@@ -74,17 +75,19 @@ export default function Products() {
         });
         setProducts([...products])
     }
+    const navigateToNewCategory = () => navigation.navigate('StoreCategoryNew', { action: 'goBack' });
 
     const navigateToEdit = product => navigation.navigate('StoreProductEdit', { product });
 
-    const navigateToNew = () => navigation.navigate('StoreProductNew');
+    const navigateToNewProduct = () => navigation.navigate('StoreProductNew', { category });
 
     useEffect(() => {
         loadProducts();
     },[category])
 
     useEffect(() => {
-        if(route) {
+        
+        if(route && route.product) {
             
             let index = products.findIndex(( obj => obj._id === route.product._id ))
 
@@ -94,19 +97,25 @@ export default function Products() {
                 route = {};
                 return;
             } 
-            if (index != -1 && route.method == 'update') {
+            else if (index != -1 && route.method == 'update') {
                 products[index] = route.product
-                if(category != route.product.category._id && category != null) products.splice(index, 1)
+                if(category._id != route.product.category._id && category._id != null) products.splice(index, 1)
                 setProducts([...products]);
                 route = {};
                 return;
             } 
-            if (index == -1 && route.method == 'create' && category == route.product.category._id ) {
+            else if (index == -1 && route.method == 'create' && category._id == route.product.category._id || !category._id ) {
                 setProducts([...products, route.product]);
                 route = {};
                 return;
             }
-            
+ 
+        }
+        else if (route && route.category) {
+            setCategories([...categories, route.category])
+            setCategory(route.category)
+            route = {};
+            return;
         }
 
     }, [route])
@@ -114,11 +123,7 @@ export default function Products() {
     return(
 
         <SafeAreaView style={styles.container}>
-            <AlertNotification
-				title={notification.title}
-				text={notification.text}
-				show={notification.show}
-			/>
+
             <Header title={'produtos'}>
                 <FilterButton
                     action={() => {
@@ -146,33 +151,34 @@ export default function Products() {
                         <TouchableOpacity
                             style={[
                                 styles.buttonTag,
-                                category == thisCategory._id && { backgroundColor: '#639DFF' }
+                                category._id == thisCategory._id && { backgroundColor: '#FF4700' }
                             ]}
-                            onPress={() => loadProductWithParams(thisCategory._id)}
+                            onPress={() => loadProductWithParams(thisCategory)}
                         >
                             <Text
                                 style={[
                                     styles.textSemiBold,
-                                    category == thisCategory._id && { color: '#FFFFFF' }
+                                    category._id == thisCategory._id && { color: '#FFFFFF' }
                                 ]}
                             >{thisCategory.name}</Text>
                         </TouchableOpacity>
                     )}
                     ListHeaderComponent={
+                        !loading && categories.length !== 0 &&
                         <TouchableOpacity
-                            style={[
-                                styles.buttonTag,
-                                category == null && { backgroundColor: '#639DFF' }
-                            ]}
-                            onPress={() => loadProductWithParams(null)}
+                        style={[
+                            styles.buttonTag,
+                            !category._id && { backgroundColor: '#FF4700' }
+                        ]}
+                        onPress={() => loadProductWithParams({})}
                         >
                             <Text
                                 style={[
                                     styles.textSemiBold,
-                                    category == null && { color: '#FFFFFF' }
+                                    !category._id && { color: '#FFFFFF' }
                                 ]}
                             >Todos</Text>
-                        </TouchableOpacity>
+                        </TouchableOpacity>    
                     }
                     ListEmptyComponent={<>
                         {loading &&
@@ -182,8 +188,25 @@ export default function Products() {
                             <TouchableOpacity style={styles.buttonTag} />
                             <TouchableOpacity style={styles.buttonTag} />
                             <TouchableOpacity style={styles.buttonTag} />
-                        </Skeleton>}       
+                        </Skeleton>}     
                     </>}
+                    ListFooterComponent={
+                        categories.length > 0 &&
+                        <TouchableOpacity
+                            style={[
+                                styles.buttonTag,
+                                { borderColor: '#FF4700', borderWidth: 3, backgroundColor: 'none' }
+                            ]}
+                            onPress={navigateToNewCategory}
+                        >
+                            <Text
+                                style={[
+                                    styles.textSemiBold,
+                                    { color: '#FF4700' }
+                                ]}
+                            >+ Adicionar</Text>
+                        </TouchableOpacity>
+                    }
                 />
             </View>
                 
@@ -205,28 +228,37 @@ export default function Products() {
                     />
                 )}
                 ListEmptyComponent={
-                    loading &&
-                    <Skeleton>
-                        <Card style={{ backgroundColor: '#F5F5F5' }} />
-                        <Card style={{ backgroundColor: '#F5F5F5' }} />
-                        <Card style={{ backgroundColor: '#F5F5F5' }} />
-                        <Card style={{ backgroundColor: '#F5F5F5' }} />
-                        <Card style={{ backgroundColor: '#F5F5F5' }} />
-                        <Card style={{ backgroundColor: '#F5F5F5' }} />
-                        <Card style={{ backgroundColor: '#F5F5F5' }} />
-                        <Card style={{ backgroundColor: '#F5F5F5' }} />
-                        <Card style={{ backgroundColor: '#F5F5F5' }} />
-                        <Card style={{ backgroundColor: '#F5F5F5' }} />
-                        <Card style={{ backgroundColor: '#F5F5F5' }} />
-                        <Card style={{ backgroundColor: '#F5F5F5' }} />
-                        <Card style={{ backgroundColor: '#F5F5F5' }} />
-                        <Card style={{ backgroundColor: '#F5F5F5' }} />
-                    </Skeleton>
-                }               
+                    loading ?
+                        <Skeleton>
+                            <Card style={{ backgroundColor: '#F5F5F5' }} />
+                            <Card style={{ backgroundColor: '#F5F5F5' }} />
+                            <Card style={{ backgroundColor: '#F5F5F5' }} />
+                            <Card style={{ backgroundColor: '#F5F5F5' }} />
+                            <Card style={{ backgroundColor: '#F5F5F5' }} />
+                            <Card style={{ backgroundColor: '#F5F5F5' }} />
+                            <Card style={{ backgroundColor: '#F5F5F5' }} />
+                            <Card style={{ backgroundColor: '#F5F5F5' }} />
+                            <Card style={{ backgroundColor: '#F5F5F5' }} />
+                            <Card style={{ backgroundColor: '#F5F5F5' }} />
+                        </Skeleton>
+                    :
+                    !loading && categories.length === 0 && page !=1 ?
+                        <View style={{ paddingTop: 16 }}>
+                            <Text style={[styles.subtitle, { marginBottom: 10 }]}>Adicione sua primeira Categoria</Text>
+                            <Text style={styles.text}>As categorias servem para organizar a lista dos seus produtos. Clique abaixo e adicione sua primeira categoria.</Text>
+                            <Image style={styles.illustration} source={img_more}/>
+                            <Button title='Adicionar agora' action={navigateToNewCategory}/>
+                        </View>
+                    :
+                    !loading && products.length === 0 && page !=1 &&
+                        <View style={{ paddingTop: 16 }}>
+                            <Text style={styles.subtitle}>Nenhum Produto nessa categoria. Clique no botão abaixo "+" e adicione!</Text>
+                        </View>
+                }                
             />
             
             <View style={styles.absoluteBottomRight}>
-                <ActionButton icon={'plus'} action={navigateToNew}/>
+                {category != null && <ActionButton icon={'plus'} action={navigateToNewProduct}/>}
             </View>        
                 
             

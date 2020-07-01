@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { SafeAreaView, View, Alert } from 'react-native';
+import React, { useContext, useEffect } from 'react';
+import { SafeAreaView, View, StatusBar } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import AuthContext from '../../../contexts/auth';
@@ -12,11 +12,10 @@ import { WhatsappFormat } from '../../../utils/treatString';
 import styles from '../../../global';
 import { NavItem, Avatar } from '../../../components/Item';
 import { CustomHeader } from '../../../components/Header';
-import { AlertNotification } from '../../../components/Alert';
 
 export default function Panel() {
 
-	const { store, signOut, notification } = useContext(AuthContext);
+	const { store, signOut } = useContext(AuthContext);
 	const whatsapp = format(store.whatsapp, WhatsappFormat)
 	const navigation = useNavigation();
 
@@ -36,16 +35,10 @@ export default function Panel() {
 	}, []);
 	
     return(
-
+		
 		<SafeAreaView style={styles.container}>
-
+			<StatusBar backgroundColor="#FDFDFD" barStyle='dark-content' />
 			<CustomHeader icon={'logout'} action={signOut} />
-
-			<AlertNotification
-				title={notification.title}
-				text={notification.text}
-				show={notification.show}
-			/>
 			
 			<Avatar
 				image={{ uri: store.avatar}}

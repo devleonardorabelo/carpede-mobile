@@ -5,7 +5,8 @@ import { useNavigation } from '@react-navigation/native';
 import api from '../../../services/api';
 import AuthContext from '../../../contexts/auth';
 
-import { openPicker, uploadImage } from '../../../utils/ImagePicker';
+import { openPicker } from '../../../utils/ImagePicker';
+import { uploadImage } from '../../../services/uploadImage';
 import { format } from '@buttercup/react-formatted-input';
 import { WhatsappFormat } from '../../../utils/treatString';
 
@@ -14,7 +15,7 @@ import { Header } from '../../../components/Header';
 import { Input, InputPassword } from '../../../components/Input';
 import { Button, ButtonTransparent } from '../../../components/Button';
 import { Avatar } from '../../../components/Item';
-
+import { ChooseImageMode } from '../../../components/Modal';
 
 export default function Signup(){
     
@@ -29,12 +30,14 @@ export default function Signup(){
     const [ password, setPassword ] = useState('');
     const [ alert, setAlert ] = useState();
     const [ status, setStatus ] = useState();
+    const [ modalActived, setModalActived ] = useState(false);
 
-
-    async function getImage() {
-        let picker = await openPicker();
+    async function getImage(mode) {
+        let picker = await openPicker(mode);
+        setModalActived(false);
         if(picker.cancelled) return;
         setUploading(true);
+        
         const upload = await uploadImage(picker.path, 'avatar');
         setImage({ uri: upload })
         setUploading(false);
@@ -85,7 +88,7 @@ export default function Signup(){
                     title={name}
                     subtitle={whatsapp.formatted}
                     icon={'image'}
-                    action={getImage}
+                    action={() => setModalActived(true)}
                     loading={uploading}
                     transparent={image.uri}
                     isChangeable
@@ -143,7 +146,14 @@ export default function Signup(){
                     icon={'login'}
                 />    
 
-            </ScrollView>           
+            </ScrollView>
+            <ChooseImageMode 
+                title='Escolha uma opção' 
+                actionClose={() => setModalActived(false)}
+                actionCamera={() => getImage('camera')}
+                actionGallery={() => getImage('gallery')}
+                active={modalActived}
+            />         
         </SafeAreaView>
     )
 }

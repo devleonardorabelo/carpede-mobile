@@ -1,12 +1,11 @@
 import React, { createContext, useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
-import messaging from '@react-native-firebase/messaging';
+
 const AuthContext = createContext({ signed: false });
 
 export const AuthProvider = ({ children }) => {
 
     const [ store, setStore ] = useState(null);
-    const [ notification, setNotification ] = useState({});
 
     useEffect(() => {
         async function checkSigned() {
@@ -42,22 +41,10 @@ export const AuthProvider = ({ children }) => {
     async function signOut() {
         setStore(null);
         await AsyncStorage.clear();
-    }
-
-    messaging().onMessage(async remoteMessage => {
-
-		setNotification({
-			title: remoteMessage.notification.title,
-			text: remoteMessage.notification.body,
-			show: true
-		});
-
-		setTimeout(() => setNotification({}), 5000)
-		
-	});
+    }    
     
     return (
-        <AuthContext.Provider value={{ signed: !!store , store, sign, signOut, notification}}>
+        <AuthContext.Provider value={{ signed: !!store , store, sign, signOut}}>
             {children}
         </AuthContext.Provider>
     )

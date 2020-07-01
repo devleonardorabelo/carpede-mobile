@@ -2,6 +2,13 @@
   package="com.carpede_negocios">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
       android:name=".MainApplication"
@@ -25,9 +32,44 @@
       <meta-data
         android:name="com.google.android.geo.API_KEY"
         android:value="AIzaSyByogxOdgr6KvZf8yAxOGrG_BDvc0qs40k"/>
-      <meta-data android:name="com.google.firebase.messaging.default_notification_icon" android:resource="@drawable/ic_stat_c" />
+
+      <meta-data
+        android:name="com.google.firebase.messaging.default_notification_icon"
+        android:resource="@mipmap/icon_small" />
+
+      <meta-data 
+        android:name="com.dieam.reactnativepushnotification.notification_channel_name"
+        android:value="carpedenegocios"/>
+
+      <meta-data
+        android:name="com.dieam.reactnativepushnotification.notification_channel_description"
+        android:value="Canal de Notificações referente ao sistema de notificações variadas"/>
+      
+      <meta-data
+        android:name="com.dieam.reactnativepushnotification.notification_foreground"
+        android:value="false"/>
+                  
+      <meta-data
+        android:name="com.dieam.reactnativepushnotification.notification_color"
+         android:resource="@color/primary"/>
+
+      <receiver android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationPublisher" />
+
+      <receiver android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationBootEventReceiver">
+        <intent-filter>
+          <action android:name="android.intent.action.BOOT_COMPLETED" />
+        </intent-filter>
+      </receiver>
+
+      <service
+        android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationListenerService"
+        android:exported="false" >
+        <intent-filter>
+          <action android:name="com.google.firebase.MESSAGING_EVENT" />
+        </intent-filter>
+      </service>
+
+      <service android:name="com.asterinet.react.bgactions.RNBackgroundActionsTask" />
+
     </application>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 </manifest>

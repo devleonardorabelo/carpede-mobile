@@ -1,13 +1,4 @@
-import { StyleSheet, PixelRatio, Dimensions } from 'react-native';
-
-const widthDP = widthPercent => {
-    const screenWidth = Dimensions.get('window').width;
-    return PixelRatio.roundToNearestPixel(screenWidth * parseFloat(widthPercent) / 100);
-};
-const heightDP = heightPercent => {
-    const screenHeight = Dimensions.get('window').height;
-    return PixelRatio.roundToNearestPixel(screenHeight * parseFloat(heightPercent) / 100);
-};
+import { StyleSheet } from 'react-native';
 
 
 export default StyleSheet.create({
@@ -18,72 +9,72 @@ export default StyleSheet.create({
         backgroundColor: '#FDFDFD',
     },
     header: {
-        marginBottom: widthDP('4%'),
+        marginBottom: 16,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        paddingHorizontal: widthDP('4%'),
-        paddingTop: widthDP('4%'),
+        paddingHorizontal: 16,
+        paddingTop: 16,
     },
     store: {
         flexDirection: 'row',
-        paddingVertical: widthDP('4%'),
-        paddingHorizontal: widthDP('4%'),
+        paddingVertical: 16,
+        paddingHorizontal: 16,
     },
     storeAvatar: {
         backgroundColor: '#E2E2E2',
-        width: widthDP('16%'),
-        height: widthDP('16%'),
+        width: 80,
+        height: 80,
         borderRadius: 100,
     },
     row: {
         flexDirection: 'row',
-        paddingHorizontal: widthDP('4%'),
+        paddingHorizontal: 16,
     },
     column: {
         flexDirection: 'column',
-        paddingHorizontal: widthDP('4%'),
+        paddingHorizontal: 16,
     },
     scrollHorizontal: {
-        paddingLeft: widthDP('4%'),
+        paddingLeft: 16,
     },
     alignCenterX: {
         justifyContent: 'center'
     },
     absoluteBottomRight: {
         position: 'absolute',
-        right: widthDP('4%'),
-        bottom: widthDP('4%'),
+        right: 16,
+        bottom: 16,
     },
     absoluteBottomLeft: {
         position: 'absolute',
-        left: widthDP('4%'),
-        bottom: widthDP('4%'),
+        left: 16,
+        bottom: 16,
     },
     //NAVITEM
     action: {
         flexDirection: 'row',
         borderBottomWidth: StyleSheet.hairlineWidth,
         borderBottomColor: '#DFDFDF',
-        paddingVertical: widthDP('4%')
+        paddingVertical: 16
     },
     iconAction: {
         alignItems: 'center',
         justifyContent: 'center',
-        paddingRight: widthDP('4%'),
-        borderTopLeftRadius: widthDP('2%'),
-        borderBottomLeftRadius: widthDP('2%'),
+        paddingRight: 16,
+        borderTopLeftRadius: 8,
+        borderBottomLeftRadius: 8,
     },
     arrowAction: {
         alignItems: 'center',
         justifyContent: 'center',
-        width: widthDP('12%'),
-        borderTopRightRadius: widthDP('2%'),
-        borderBottomRightRadius: widthDP('2%'),
+        width: '12%',
+        borderTopRightRadius: 8,
+        borderBottomRightRadius: 8,
     },
     subtitleTextAction: {
         fontFamily: 'Montserrat Light',
-        fontSize: widthDP('4%'),
+        fontSize: 16,
         marginTop: -2,
         color: '#666666'
     },
@@ -91,38 +82,40 @@ export default StyleSheet.create({
     box: {
         flexDirection: 'row',
         alignItems: 'center',
-        borderRadius: widthDP('2%'),
-        padding: widthDP('2%'),
-        marginBottom: widthDP('2%'),
+        borderRadius: 8,
+        padding: 4,
+        marginBottom: 4,
         backgroundColor: '#F9F9F9',
+        minHeight: 82,
     },
     boxImage: {
-        width: widthDP('24%'),
+        width: '24%',
         height: '100%',
-        borderRadius: widthDP('2%')
+        borderRadius: 8,
     },
     boxBody: {
         flexDirection: 'column',
-        padding: widthDP('4%'),
+        padding: 16,
         flexGrow: 1,
     },
     alertBottom: {
-        backgroundColor: '#639DFF',
+        backgroundColor: '#FF4700',
         position: 'absolute',
         bottom: 0,
         left: 0,
         right: 0,
-        paddingHorizontal: widthDP('4%'),
-        paddingVertical: widthDP('2%'),
+        paddingHorizontal: 16,
+        paddingVertical: 4,
         zIndex: 999,
     },
     //IMAGE
     fullImage: {
-        width: widthDP('100%'),
-        height: widthDP('84%'),
+        width: '100%',
+        height: 300,
+        borderRadius: 8,
     },
     uploadImage: {
-        width: widthDP('100%'),
+        width: '100%',
     },
     groupFloatButton: {
         flexDirection: 'row',
@@ -134,38 +127,39 @@ export default StyleSheet.create({
     boxFloatButton: {
         position: 'absolute',
         justifyContent: 'center',
-        width: widthDP('16%'),
-        height: widthDP('16%'),
+        width: '16%',
+        height: '16%',
         alignItems: 'center'
     },
     //TEXTS AND TITLES
     title: {
         fontFamily: 'Montserrat Bold',
-        fontSize: widthDP('8%'),
+        fontSize: 32,
+        lineHeight: 34,
         color: '#333333',
     },
     subtitle: {
         color: '#666666',
-        fontSize: widthDP('6%'),
+        fontSize: 18,
         fontFamily: 'Montserrat Medium'
     },
     text: {
-        fontSize: widthDP('4%'),
+        fontSize: 16,
         fontFamily: 'Montserrat Medium',
         color: '#333333'
     },
     textSemiBold: {
-        fontSize: widthDP('4%'),
+        fontSize: 16,
         fontFamily: 'Montserrat SemiBold',
         color: '#333333'
     },
     textBold: {
-        fontSize: widthDP('4%'),
+        fontSize: 16,
         fontFamily: 'Montserrat Bold',
         color: '#333333'
     },
     textLight: {
-        fontSize: widthDP('4%'),
+        fontSize: 16,
         fontFamily: 'Montserrat Bold',
         color: '#333333'
     },
@@ -174,130 +168,129 @@ export default StyleSheet.create({
         flexWrap: 'wrap',
     },
     textHide: {
-        height: widthDP('4%'),
+        height: 16,
         backgroundColor: '#E2E2E2',
-        borderRadius: widthDP('2%'),
+        borderRadius: 8,
     },
     titleHide: {
-        height: widthDP('8%'),
+        height: 16,
         flexGrow: 1,
-        marginTop: widthDP('2%'),
-        borderRadius: widthDP('2%'),
+        marginTop: 4,
+        borderRadius: 8,
         backgroundColor: '#E2E2E2',
-        borderRadius: widthDP('2%'),
     }, 
 
     //BUTTONS
     button: {
-        height: widthDP('12%'),
-        borderRadius: widthDP('2%'),
-        marginBottom: widthDP('4%'),
+        height: 48,
+        borderRadius: 8,
+        marginBottom: 16,
         justifyContent: 'center',
         alignItems: 'center',
-        paddingHorizontal: widthDP('4%')
+        paddingHorizontal: 16
     },
     buttonTransparent: {
-        height: widthDP('12%'),
+        height: 48,
         backgroundColor: 'transparent',
-        marginBottom: widthDP('4%'),
+        marginBottom: 16,
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'row'
     },
     buttonTag: {
-        height: widthDP('8%'),
-        minWidth: 80,
-        borderRadius: widthDP('2%'),
-        marginBottom: widthDP('4%'),
-        marginRight: widthDP('2%'),
+        height: 40,
+        minWidth: 120,
+        borderRadius: 8,
+        marginBottom: 16,
+        marginRight: 4,
         justifyContent: 'center',
         alignItems: 'center',
-        paddingHorizontal: widthDP('4%'),
+        paddingHorizontal: 16,
         backgroundColor: '#E2E2E2'
     },
     buttonFloat: {
-        backgroundColor: '#639DFF',
-        width: widthDP('16%'),
-        height: widthDP('16%'),
-        borderRadius: widthDP('2%'),
+        backgroundColor: '#FF4700',
+        width: 64,
+        height: 64,
+        borderRadius: 8,
         justifyContent: 'center',
         alignItems: 'center'
     },
     actionButton: {
-        backgroundColor: '#639DFF',
-        height: widthDP('16%'),
-        width: widthDP('16%'),
+        backgroundColor: '#FF4700',
+        height: 64,
+        width: 64,
         borderRadius: 100,
         alignItems: 'center',
         justifyContent: 'center'
     },
     //INPUTS
     groupInput: {
-        marginBottom: widthDP('4%'),
+        marginBottom: 16,
     },
     labelInput: {
         flexDirection: 'row'
     },
     labelText: {
-        marginLeft: widthDP('2%'),
-        marginBottom: widthDP('-2%'),
+        marginLeft: 4,
+        marginBottom: -10,
         zIndex: 999,
-        paddingHorizontal: widthDP('1%'),
+        paddingHorizontal: 8,
         backgroundColor: '#FFFFFF',
     },
     iconInput: {
-        paddingHorizontal: widthDP('4%'),
-        paddingTop: widthDP('4%')
+        paddingHorizontal: 16,
+        paddingTop: 16
     },
     textInput: {
         height: 50,
-        fontSize: widthDP('4%'),   
+        fontSize: 16,   
         fontFamily: 'Montserrat Medium',
         flexGrow: 1,
         borderColor: '#E2E2E2',
-        borderRadius: widthDP('2%'),
+        borderRadius: 8,
         borderWidth: 1,
-        paddingLeft: widthDP('4%'),
+        paddingLeft: 16,
         color: '#333333'
     },
     inputTextAlert: {
         fontFamily: 'Montserrat Light',
-        fontSize: widthDP('4%'),
+        fontSize: 16,
         color: '#E63B2E',
-        paddingLeft: widthDP('1%'),
-        paddingTop: widthDP('1%'),
+        paddingLeft: 2,
+        paddingTop: 2,
     },
     textareaInput: {
-        height: heightDP('12%'),
+        height: 80,
         textAlignVertical: 'top',
         borderColor: '#E2E2E2',
-        borderRadius: widthDP('2%'),
+        borderRadius: 8,
         borderWidth: 1,
-        padding: widthDP('4%'),
-        fontSize: widthDP('4%'),  
+        padding: 16,
+        fontSize: 16,  
         fontFamily: 'Montserrat Medium',
         color: '#333333'   
     },
     //MORE
     illustration: {
-        backgroundColor: '#FFFFFF',
-        marginBottom: widthDP('15%'),
-        maxHeight: heightDP('40%'),
-        resizeMode: 'contain',
-        alignSelf: 'center'
+        marginVertical: 20,
+        height: 180,
+        width: 180,
+        alignSelf: 'center',
+        resizeMode: 'contain'
     },
     boxFluid: {
-        paddingHorizontal: widthDP('4%'),
-        paddingTop: widthDP('4%'),
-        width: widthDP('100%'),
+        paddingHorizontal: 16,
+        paddingTop: 16,
+        width: '100%',
     },
     map: {
         flex:1,
     },
     orderList: {
-        padding: widthDP('4%'),
-        borderRadius: widthDP('2%'),
-        marginBottom: widthDP('4%'),
+        padding: 16,
+        borderRadius: 8,
+        marginBottom: 16,
         borderBottomWidth: 1,
         borderBottomColor: '#DFDFDF',
     },  
@@ -317,7 +310,7 @@ export default StyleSheet.create({
     },
     orderHeader:{
         width: '100%',
-        backgroundColor: '#639DFF',
+        backgroundColor: '#FF4700',
         position: 'absolute',
         top: 0,
         left: 0,
@@ -331,10 +324,10 @@ export default StyleSheet.create({
     },
     deliveryInfo: {
         flexDirection: 'row',
-        backgroundColor: '#639DFF',
+        backgroundColor: '#FF4700',
         justifyContent: 'space-between',
         alignItems: 'center',
-        padding: widthDP('4%'),
+        padding: 16,
     },
     backgroundModal: {
         position: 'absolute',
@@ -349,8 +342,8 @@ export default StyleSheet.create({
     },
     modal: {
         backgroundColor: '#FFFFFF',
-        padding: widthDP('4%'),
-        maxWidth: widthDP('92%')
+        padding: 16,
+        maxWidth: '92%'
     },
     headerModal: {
         flexDirection: 'row',

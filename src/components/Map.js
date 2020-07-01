@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import MapView, { Marker } from 'react-native-maps';
-import styles from '../global';
 import MI from 'react-native-vector-icons/MaterialCommunityIcons';
+
+import styles from '../global';
+import Loading from '../components/Loading';
+
 
 export function LocationMap(props) {
 
-    const [ currentRegion, setCurrentRegion ] = useState(null);
+    const [ currentRegion, setCurrentRegion ] = useState({
+        latitude: 0,
+        longitude: 0,
+    });
     const [ latitude, setLatitude ] = useState(props.latitude);
     const [ longitude, setLongitude ] = useState(props.longitude);
 
@@ -25,11 +31,15 @@ export function LocationMap(props) {
     }, [])
 
     return(
-        <MapView style={styles.map} initialRegion={currentRegion} minZoomLevel={15}>
+        <MapView
+            style={styles.map} 
+            initialRegion={currentRegion}
+            minZoomLevel={15}
+        >
             <Marker coordinate={{latitude, longitude}}>
                 <MI
                     name={'map-marker'}
-                    color={'#639DFF'}
+                    color={'#FF4700'}
                     size={48}
                 />
             </Marker>

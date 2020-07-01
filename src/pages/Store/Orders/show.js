@@ -67,7 +67,7 @@ export default function Show() {
 
             <View style={[styles.column,{ marginBottom: 0 }]}>
                 <Text style={styles.subtitle}>Detalhes do pedido:</Text> 
-                <Text style={[styles.textBold,{ color: '#639DFF' }]}>
+                <Text style={[styles.textBold,{ color: '#FF4700' }]}>
                     {order.time} - 
                     {order.status == 'waiting' && ` Aguardando entrega`}
                     {order.status == 'done' && ` Pedido entregue`}

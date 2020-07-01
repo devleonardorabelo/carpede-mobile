@@ -4,13 +4,15 @@ import { useRoute, useNavigation } from '@react-navigation/native';
 
 import apiReq from '../../../services/reqToken';
 import AuthContext from '../../../contexts/auth';
-import { openPicker, uploadImage } from '../../../utils/ImagePicker';
+import { openPicker } from '../../../utils/ImagePicker';
+import { uploadImage } from '../../../services/uploadImage';
 
 import styles from '../../../global';
 import { Header } from '../../../components/Header'
 import { PreviewImage } from '../../../components/Image';
 import { Input } from '../../../components/Input';
 import { Button, LinearButton } from '../../../components/Button';
+import { ChooseImageMode } from '../../../components/Modal';
 
 export default function EditCategory() {
 
@@ -24,11 +26,14 @@ export default function EditCategory() {
     const [ name, setName ] = useState(category.name);
     const [ alert, setAlert ] = useState();
     const [ status, setStatus ] = useState(false);
+    const [ modalActived, setModalActived ] = useState(false);
 
-    async function getImage() {
-        let picker = await openPicker();
+    async function getImage(mode) {
+        let picker = await openPicker(mode);
+        setModalActived(false);
         if(picker.cancelled) return;
         setUploading(true);
+
         const upload = await uploadImage(picker.path, store.store_id);
         setImage({ uri: upload })
         setUploading(false);
@@ -89,7 +94,7 @@ export default function EditCategory() {
 
                 <PreviewImage
                     image={image}
-                    action={getImage}
+                    action={() => setModalActived(true)}
                     icon='image-outline'
                     loading={uploading}
                 />
@@ -111,6 +116,13 @@ export default function EditCategory() {
                     disabledText='Carregando Imagem...'/>
                 
             </ScrollView>
+            <ChooseImageMode 
+                title='Escolha uma opção' 
+                actionClose={() => setModalActived(false)}
+                actionCamera={() => getImage('camera')}
+                actionGallery={() => getImage('gallery')}
+                active={modalActived}
+            />
         </SafeAreaView>
     )
 }

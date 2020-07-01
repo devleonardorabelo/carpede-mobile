@@ -45,7 +45,7 @@ export function Avatar(props) {
                 />
                 :
                     <View style={[styles.storeAvatar, { backgroundColor: '#E2E2E2', justifyContent: 'center', alignItems: 'center' }]}>
-                       <ActivityIndicator size='small' color="#639DFF" />
+                       <ActivityIndicator size='small' color="#FF4700" />
                     </View>
                     
                 }
@@ -101,16 +101,20 @@ export function Card(props) {
                     resizeMode='cover'
                 />
             }
-            
-            <View style={styles.boxBody}>
-                <View style={{ flexDirection: 'row' }}>
-                    <Text style={[styles.textWrap, styles.textBold]}>{props.title && regexMed(props.title)}</Text>
+
+            {props.title &&
+                <View style={styles.boxBody}>
+                    <View style={{ flexDirection: 'row' }}>
+                        <Text style={[styles.textWrap, styles.textBold]}>{props.title && regexMed(props.title)}</Text>
+                    </View>
+                    { props.price &&
+                        <Text style={styles.textSemiBold}>{treatPrice(props.price)}</Text>
+                    }
+                    
                 </View>
-                { props.price &&
-                    <Text style={styles.textSemiBold}>{treatPrice(props.price)}</Text>
-                }
-                
-            </View>
+            }
+            
+            {props.children}
 
         </TouchableOpacity>
     )
@@ -128,7 +132,7 @@ export function CardOrder(props) {
             </View>
             <View>
                 <Text style={[styles.textSemiBold, { marginTop: 0 }]}>{treatPrice(props.price)}</Text>
-                <Text style={[styles.textBold, { alignSelf: 'flex-end', color: '#639DFF' }]}>{props.time}</Text>
+                <Text style={[styles.textBold, { alignSelf: 'flex-end', color: '#FF4700' }]}>{props.time}</Text>
             </View>
         </TouchableOpacity>
     )
@@ -271,7 +275,7 @@ export function Checkout(props) {
                         onPress={sendInfoClicked}
                     >
                         <View>
-                            <MI name='chevron-down' color='#639DFF' size={32}/>
+                            <MI name='chevron-down' color='#FF4700' size={32}/>
                         </View>
                     </TouchableOpacity>
                     
@@ -281,22 +285,5 @@ export function Checkout(props) {
 
             </Animated.View>
         </PanGestureHandler>  
-    )
-}
-
-export function Modal(props) {
-
-    return (
-        props.active ?
-        <View style={styles.backgroundModal}>
-            <View style={styles.modal}>
-                <View style={styles.headerModal}>
-                    <Text style={[styles.textBold,{ width:'85%' }]}>{props.title}</Text>
-                    <LinearButton style={{ width: '10%' }} icon='close' action={props.actionClose} />
-                </View>
-                <Text style={styles.text}>{props.text}</Text>
-            </View>
-        </View>
-        :null
     )
 }

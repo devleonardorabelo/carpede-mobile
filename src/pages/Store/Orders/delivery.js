@@ -6,7 +6,7 @@ import styles from '../../../global';
 
 import { TransparentHeader } from '../../../components/Header';
 import { LinearButton  } from '../../../components/Button';
-import { Modal } from '../../../components/Item';
+import { AlertCenter } from '../../../components/Modal';
 
 export default function Delivery(){
 
@@ -50,7 +50,7 @@ export default function Delivery(){
                     />     
                 </View>
             </View>
-            <Modal
+            <AlertCenter
                 title='Rota de entrega copiada!'
                 text='A rota de entrega foi copiada para a área de transferência, você pode compartilhar colando e enviando para o entregador.'
                 active={copied}
