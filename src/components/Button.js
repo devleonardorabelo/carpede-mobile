@@ -14,12 +14,12 @@ export function Button(props) {
 
         switch (props.status) {
             case 'loading':
-                setColor('#E2E2E2');
-                setContent(<ActivityIndicator size="large" color="#266EE8" />)
+                setColor('#9B2C00');
+                setContent(<ActivityIndicator size="large" color="#FFFFFF" />)
                 setDisabled(true);
                 break;
             case 'done':
-                setColor('#266EE8');
+                setColor('#FF7239');
                 setContent(<Text style={[styles.textSemiBold, { color: '#FFFFFF' }]}>Feito!</Text>)
                 setDisabled(true);
                 break;
