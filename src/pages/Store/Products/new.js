@@ -10,7 +10,7 @@ import { uploadImage } from '../../../services/uploadImage';
 import styles from '../../../global';
 import { Header } from '../../../components/Header';
 import { PreviewImage } from '../../../components/Image';
-import { Input, Select } from '../../../components/Input';
+import { Input, Select, TextArea } from '../../../components/Input';
 import { Button } from '../../../components/Button';
 import { ChooseImageMode } from '../../../components/Modal';
 
@@ -98,7 +98,7 @@ export default function NewProduct() {
                     maxLength={40}
                     error={alert}
                 />
-                <Input
+                <TextArea
                     title={'Descrição'}
                     name={'description'}
                     action={e => setDescription(e)}

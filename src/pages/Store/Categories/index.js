@@ -130,16 +130,16 @@ export default function Categories() {
                     
                     {loading &&
                         <Skeleton>
-                            <Card style={{ backgroundColor: '#F5F5F5' }} />
-                            <Card style={{ backgroundColor: '#F5F5F5' }} />
-                            <Card style={{ backgroundColor: '#F5F5F5' }} />
-                            <Card style={{ backgroundColor: '#F5F5F5' }} />
-                            <Card style={{ backgroundColor: '#F5F5F5' }} />
-                            <Card style={{ backgroundColor: '#F5F5F5' }} />
-                            <Card style={{ backgroundColor: '#F5F5F5' }} />
-                            <Card style={{ backgroundColor: '#F5F5F5' }} />
-                            <Card style={{ backgroundColor: '#F5F5F5' }} />
-                            <Card style={{ backgroundColor: '#F5F5F5' }} />
+                            <Card style={{ backgroundColor: '#F5F5F5', minHeight: 64 }} />
+                            <Card style={{ backgroundColor: '#F5F5F5', minHeight: 64 }} />
+                            <Card style={{ backgroundColor: '#F5F5F5', minHeight: 64 }} />
+                            <Card style={{ backgroundColor: '#F5F5F5', minHeight: 64 }} />
+                            <Card style={{ backgroundColor: '#F5F5F5', minHeight: 64 }} />
+                            <Card style={{ backgroundColor: '#F5F5F5', minHeight: 64 }} />
+                            <Card style={{ backgroundColor: '#F5F5F5', minHeight: 64 }} />
+                            <Card style={{ backgroundColor: '#F5F5F5', minHeight: 64 }} />
+                            <Card style={{ backgroundColor: '#F5F5F5', minHeight: 64 }} />
+                            <Card style={{ backgroundColor: '#F5F5F5', minHeight: 64 }} />
                         </Skeleton>
                     } 
                     {!loading && categories.length == 0 &&

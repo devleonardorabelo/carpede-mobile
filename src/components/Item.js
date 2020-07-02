@@ -3,13 +3,13 @@ import { TouchableOpacity, View, Text, Image, Animated, ActivityIndicator } from
 import styles from '../global';
 import MI from 'react-native-vector-icons/MaterialCommunityIcons';
 import { PanGestureHandler, State } from 'react-native-gesture-handler';
+import Gradient from 'react-native-linear-gradient';
 
 import { regexMed, treatPrice } from '../utils/treatString';
 
 import { InfoOrder } from '../components/Info';
 
 import cardImage from '../assets/illustrations/repeat_food.png';
-import { LinearButton } from './Button';
 
 export function NavItem(props) {
     return (
@@ -245,23 +245,28 @@ export function Checkout(props) {
 
                     }]}
                 >
-                    <TouchableOpacity
-                        style={styles.orderDropButton}
-                        onPress={sendInfoClicked}
+                    <Gradient
+                        colors={['#FF4700', '#FF7239']}
                     >
-                        {wasClicked ?
-                            <View style={{ alignItems: 'center' }}>
-                                <MI name='menu-up' color='#FFFFFF' size={32}/>
-                                <Text style={[styles.text,{ marginTop: -10, color: '#FFFFFF' }]}>Segure e arraste pra cima</Text>
-                            </View>
-                        :
-                            <>
-                            <View>
-                                <MI name='bike' color='#FFFFFF' size={32}/>  
-                            </View>
-                            </> 
-                        }   
-                    </TouchableOpacity>     
+                        <TouchableOpacity
+                            style={styles.orderDropButton}
+                            onPress={sendInfoClicked}
+                        >
+                            {wasClicked ?
+                                <View style={{ alignItems: 'center' }}>
+                                    <MI name='menu-up' color='#FFFFFF' size={32}/>
+                                    <Text style={[styles.text,{ marginTop: -10, color: '#FFFFFF' }]}>Segure e arraste pra cima</Text>
+                                </View>
+                            :
+                                <>
+                                <View>
+                                    <MI name='bike' color='#FFFFFF' size={32}/>  
+                                </View>
+                                </> 
+                            }   
+                        </TouchableOpacity>
+                    </Gradient>
+                         
                 </Animated.View>
 
                 <View

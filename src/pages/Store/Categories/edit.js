@@ -86,7 +86,7 @@ export default function EditCategory() {
     return(
         <SafeAreaView style={styles.container}>
 
-            <Header title={name}>
+            <Header title="EDITAR CATEGORIA">
                 <LinearButton icon={'trash-can-outline'} action={() => handleDelete(category._id)}/>
             </Header>
 

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { FlatList, SafeAreaView, View, Text, TouchableOpacity, Image } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
-
 import apiReq from '../../../services/reqToken';
+import Gradient from 'react-native-linear-gradient';
 
 import styles from '../../../global';
 import Skeleton from '../../../components/Skeleton';
@@ -148,46 +148,46 @@ export default function Products() {
                     horizontal={true}
                     showsHorizontalScrollIndicator={false}
                     renderItem={({ item: thisCategory }) => (
-                        <TouchableOpacity
-                            style={[
-                                styles.buttonTag,
-                                category._id == thisCategory._id && { backgroundColor: '#FF4700' }
-                            ]}
-                            onPress={() => loadProductWithParams(thisCategory)}
-                        >
-                            <Text
-                                style={[
-                                    styles.textSemiBold,
-                                    category._id == thisCategory._id && { color: '#FFFFFF' }
-                                ]}
-                            >{thisCategory.name}</Text>
+                        <TouchableOpacity onPress={() => loadProductWithParams(thisCategory)}>
+                            <Gradient
+                                style={styles.buttonTag}
+                                start={{x: 0.0, y: 0.25}} end={{x: 0.5, y: 1.0}}
+                                colors={category._id == thisCategory._id ? ['#FF7239', '#FF4700'] : ['#E2E2E2', '#E2E2E2']}
+                            >
+                                <Text
+                                    style={[
+                                        styles.textSemiBold,
+                                        category._id == thisCategory._id && { color: '#FFFFFF' }
+                                    ]}
+                                >{thisCategory.name}</Text>    
+                            </Gradient>    
                         </TouchableOpacity>
                     )}
                     ListHeaderComponent={
-                        !loading && categories.length !== 0 &&
-                        <TouchableOpacity
-                        style={[
-                            styles.buttonTag,
-                            !category._id && { backgroundColor: '#FF4700' }
-                        ]}
-                        onPress={() => loadProductWithParams({})}
-                        >
-                            <Text
-                                style={[
-                                    styles.textSemiBold,
-                                    !category._id && { color: '#FFFFFF' }
-                                ]}
-                            >Todos</Text>
+                        categories.length !== 0 &&
+                        <TouchableOpacity onPress={() => loadProductWithParams({})}>
+                            <Gradient
+                                style={styles.buttonTag}
+                                start={{x: 0.0, y: 0.25}} end={{x: 0.5, y: 1.0}}
+                                colors={!category._id ? ['#FF7239', '#FF4700'] : ['#E2E2E2', '#E2E2E2']}
+                            >
+                                <Text
+                                    style={[
+                                        styles.textSemiBold,
+                                        !category._id && { color: '#FFFFFF' }
+                                    ]}
+                                >Todos</Text>
+                            </Gradient>
                         </TouchableOpacity>    
                     }
                     ListEmptyComponent={<>
                         {loading &&
                         <Skeleton style={{ flexDirection: 'row' }}>
-                            <TouchableOpacity style={styles.buttonTag} />
-                            <TouchableOpacity style={styles.buttonTag} />
-                            <TouchableOpacity style={styles.buttonTag} />
-                            <TouchableOpacity style={styles.buttonTag} />
-                            <TouchableOpacity style={styles.buttonTag} />
+                            <TouchableOpacity style={[styles.buttonTag, { backgroundColor: '#E2E2E2' }]} />
+                            <TouchableOpacity style={[styles.buttonTag, { backgroundColor: '#E2E2E2' }]} />
+                            <TouchableOpacity style={[styles.buttonTag, { backgroundColor: '#E2E2E2' }]} />
+                            <TouchableOpacity style={[styles.buttonTag, { backgroundColor: '#E2E2E2' }]} />
+                            <TouchableOpacity style={[styles.buttonTag, { backgroundColor: '#E2E2E2' }]} />
                         </Skeleton>}     
                     </>}
                     ListFooterComponent={
@@ -230,16 +230,16 @@ export default function Products() {
                 ListEmptyComponent={
                     loading ?
                         <Skeleton>
-                            <Card style={{ backgroundColor: '#F5F5F5' }} />
-                            <Card style={{ backgroundColor: '#F5F5F5' }} />
-                            <Card style={{ backgroundColor: '#F5F5F5' }} />
-                            <Card style={{ backgroundColor: '#F5F5F5' }} />
-                            <Card style={{ backgroundColor: '#F5F5F5' }} />
-                            <Card style={{ backgroundColor: '#F5F5F5' }} />
-                            <Card style={{ backgroundColor: '#F5F5F5' }} />
-                            <Card style={{ backgroundColor: '#F5F5F5' }} />
-                            <Card style={{ backgroundColor: '#F5F5F5' }} />
-                            <Card style={{ backgroundColor: '#F5F5F5' }} />
+                            <Card style={{ backgroundColor: '#F5F5F5', minHeight: 84 }} />
+                            <Card style={{ backgroundColor: '#F5F5F5', minHeight: 84 }} />
+                            <Card style={{ backgroundColor: '#F5F5F5', minHeight: 84 }} />
+                            <Card style={{ backgroundColor: '#F5F5F5', minHeight: 84 }} />
+                            <Card style={{ backgroundColor: '#F5F5F5', minHeight: 84 }} />
+                            <Card style={{ backgroundColor: '#F5F5F5', minHeight: 84 }} />
+                            <Card style={{ backgroundColor: '#F5F5F5', minHeight: 84 }} />
+                            <Card style={{ backgroundColor: '#F5F5F5', minHeight: 84 }} />
+                            <Card style={{ backgroundColor: '#F5F5F5', minHeight: 84 }} />
+                            <Card style={{ backgroundColor: '#F5F5F5', minHeight: 84 }} />
                         </Skeleton>
                     :
                     !loading && categories.length === 0 && page !=1 ?

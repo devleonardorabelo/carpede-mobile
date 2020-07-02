@@ -86,7 +86,6 @@ export default StyleSheet.create({
         padding: 4,
         marginBottom: 4,
         backgroundColor: '#F9F9F9',
-        minHeight: 82,
     },
     boxImage: {
         width: '24%',
@@ -206,7 +205,6 @@ export default StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         paddingHorizontal: 16,
-        backgroundColor: '#E2E2E2'
     },
     buttonFloat: {
         backgroundColor: '#FF4700',
@@ -217,7 +215,6 @@ export default StyleSheet.create({
         alignItems: 'center'
     },
     actionButton: {
-        backgroundColor: '#FF4700',
         height: 64,
         width: 64,
         borderRadius: 100,
@@ -310,7 +307,6 @@ export default StyleSheet.create({
     },
     orderHeader:{
         width: '100%',
-        backgroundColor: '#FF4700',
         position: 'absolute',
         top: 0,
         left: 0,

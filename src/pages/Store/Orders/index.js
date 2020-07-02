@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { SafeAreaView, FlatList, TouchableOpacity, View, Text, Image } from 'react-native';
 import apiReq from '../../../services/reqToken';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import Gradient from 'react-native-linear-gradient';
 
 import styles from '../../../global';
 import Skeleton from '../../../components/Skeleton';
@@ -82,38 +83,32 @@ export default function Order() {
             <Header title={'pedidos'}/>
 
             <View style={styles.row}>
-                <TouchableOpacity
-                    style={[
-                        styles.buttonTag,
-                        status == 'waiting' && { backgroundColor: '#FF4700' }
-                    ]}
-                    onPress={() => loadOrdersWithParams('waiting')}
-                >
-                    <Text style={[styles.textSemiBold, status == 'waiting' && { color: '#FFFFFF' } ]}>
-                        Aguardando
-                    </Text>
+                <TouchableOpacity onPress={() => loadOrdersWithParams('waiting')}>
+                    <Gradient
+                        style={styles.buttonTag}
+                        start={{x: 0.0, y: 0.25}} end={{x: 0.5, y: 1.0}}
+                        colors={status == 'waiting' ? ['#FF7239', '#FF4700'] : ['#E2E2E2', '#E2E2E2']}
+                    >
+                        <Text style={[styles.textSemiBold, status == 'waiting' && { color: '#FFFFFF' } ]}>Aguardando</Text>
+                    </Gradient>
                 </TouchableOpacity>
-                <TouchableOpacity
-                    style={[
-                        styles.buttonTag,
-                        status == 'done' && { backgroundColor: '#FF4700' }
-                    ]}
-                    onPress={() => loadOrdersWithParams('done')}
-                >
-                    <Text style={[styles.textSemiBold, status == 'done' && { color: '#FFFFFF' } ]}>
-                        Entregue
-                    </Text>
+                <TouchableOpacity onPress={() => loadOrdersWithParams('done')}>
+                    <Gradient
+                        style={styles.buttonTag}
+                        start={{x: 0.0, y: 0.25}} end={{x: 0.5, y: 1.0}}
+                        colors={status == 'done' ? ['#FF7239', '#FF4700'] : ['#E2E2E2', '#E2E2E2']}
+                    >
+                        <Text style={[styles.textSemiBold, status == 'done' && { color: '#FFFFFF' } ]}>Entregues</Text>
+                    </Gradient>
                 </TouchableOpacity>
-                <TouchableOpacity
-                    style={[
-                        styles.buttonTag,
-                        status == 'lost' && { backgroundColor: '#FF4700' }
-                    ]}
-                    onPress={() => loadOrdersWithParams('lost')}
-                >
-                    <Text style={[styles.textSemiBold, status == 'lost' && { color: '#FFFFFF' } ]}>
-                        Perdidos
-                    </Text>
+                <TouchableOpacity onPress={() => loadOrdersWithParams('lost')}>
+                    <Gradient
+                        style={styles.buttonTag}
+                        start={{x: 0.0, y: 0.25}} end={{x: 0.5, y: 1.0}}
+                        colors={status == 'lost' ? ['#FF7239', '#FF4700'] : ['#E2E2E2', '#E2E2E2']}
+                    >
+                        <Text style={[styles.textSemiBold, status == 'lost' && { color: '#FFFFFF' } ]}>Perdidos</Text>
+                    </Gradient>
                 </TouchableOpacity>
             </View>
 
@@ -140,16 +135,16 @@ export default function Order() {
                 ListEmptyComponent={<>
                     {loading &&
                         <Skeleton>
-                            <Card style={{ backgroundColor: '#F5F5F5' }} title='...' />
-                            <Card style={{ backgroundColor: '#F5F5F5' }} title='...' />
-                            <Card style={{ backgroundColor: '#F5F5F5' }} title='...' />
-                            <Card style={{ backgroundColor: '#F5F5F5' }} title='...' />
-                            <Card style={{ backgroundColor: '#F5F5F5' }} title='...' />
-                            <Card style={{ backgroundColor: '#F5F5F5' }} title='...' />
-                            <Card style={{ backgroundColor: '#F5F5F5' }} title='...' />
-                            <Card style={{ backgroundColor: '#F5F5F5' }} title='...' />
-                            <Card style={{ backgroundColor: '#F5F5F5' }} title='...' />
-                            <Card style={{ backgroundColor: '#F5F5F5' }} title='...' />
+                            <Card style={{ backgroundColor: '#F5F5F5', minHeight: 50 }}  />
+                            <Card style={{ backgroundColor: '#F5F5F5', minHeight: 50 }}  />
+                            <Card style={{ backgroundColor: '#F5F5F5', minHeight: 50 }}  />
+                            <Card style={{ backgroundColor: '#F5F5F5', minHeight: 50 }}  />
+                            <Card style={{ backgroundColor: '#F5F5F5', minHeight: 50 }}  />
+                            <Card style={{ backgroundColor: '#F5F5F5', minHeight: 50 }}  />
+                            <Card style={{ backgroundColor: '#F5F5F5', minHeight: 50 }}  />
+                            <Card style={{ backgroundColor: '#F5F5F5', minHeight: 50 }}  />
+                            <Card style={{ backgroundColor: '#F5F5F5', minHeight: 50 }}  />
+                            <Card style={{ backgroundColor: '#F5F5F5', minHeight: 50 }}  />
                         </Skeleton>
                     }
                     {!loading && orders.length === 0 && status == 'waiting' && page != 1 &&
