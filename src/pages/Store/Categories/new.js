@@ -32,9 +32,10 @@ export default function NewCategory() {
         setModalActived(false);
         if(picker.cancelled) return;
         setUploading(true);
+        setImage({ preview: picker.path })
 
         const upload = await uploadImage(picker.path, store.store_id);
-        setImage({ uri: upload })
+        setImage({ uri: upload, preview: picker.path })
         setUploading(false);
     }
 
@@ -56,7 +57,6 @@ export default function NewCategory() {
         setStatus('done');
 
         if(params && params.action == 'goBack') {
-            console.log('salvando')
             setTimeout(() => { navigation.navigate('StoreProducts', {
                 method: 'create', 
                 category: data.category
@@ -81,7 +81,7 @@ export default function NewCategory() {
             <ScrollView showsVerticalScrollIndicator={false} style={styles.column}>
 
                 <PreviewImage
-                    image={image}
+                    image={image.preview ? { uri: image.preview } : { uri: image.uri }}
                     action={() => setModalActived(true)}
                     icon='image-outline'
                     loading={uploading}

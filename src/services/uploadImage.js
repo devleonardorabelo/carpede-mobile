@@ -16,7 +16,6 @@ const uploadImage = async (image, directory) => {
 
     if(upload) {
         const uploaded = await storage().ref(refNewImage).getDownloadURL();
-        console.log(uploaded)
         return uploaded;
     } else {
         return null;

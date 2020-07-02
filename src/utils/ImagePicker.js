@@ -4,9 +4,10 @@ const openPicker = async mode => {
     switch (mode) {
         case 'camera':
             let uploadedByCamera = await ImagePicker.openCamera({
-                width: 300,
-                height: 300,
-                cropping: true
+                width: 800,
+                height: 800,
+                cropping: true,
+                mediaType: 'photo'
             }).catch(err => {
                 return {
                     cancelled: true,
@@ -17,9 +18,10 @@ const openPicker = async mode => {
             break;
         case 'gallery':
             let uploadedByGallery = await ImagePicker.openPicker({
-                width: 300,
-                height: 300,
-                cropping: true
+                width: 800,
+                height: 800,
+                cropping: true,
+                mediaType: 'photo',
             }).catch(err => {
                 return {
                     cancelled: true,

@@ -31,7 +31,7 @@ export function Button(props) {
         }
 
         if(props.disabled == true) {
-            setColor('#F5F5F5');
+            setColor(['#F5F5F5', '#F5F5F5']);
             setContent(<Text style={styles.textSemiBold}>{props.disabledText}</Text>);
             setDisabled(true);
         }

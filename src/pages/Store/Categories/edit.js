@@ -33,9 +33,10 @@ export default function EditCategory() {
         setModalActived(false);
         if(picker.cancelled) return;
         setUploading(true);
+        setImage({ preview: picker.path })
 
         const upload = await uploadImage(picker.path, store.store_id);
-        setImage({ uri: upload })
+        setImage({ uri: upload, preview: picker.path })
         setUploading(false);
     }
 
@@ -93,7 +94,7 @@ export default function EditCategory() {
             <ScrollView showsVerticalScrollIndicator={false} style={styles.column}>
 
                 <PreviewImage
-                    image={image}
+                    image={image.preview ? { uri: image.preview } : { uri: image.uri }}
                     action={() => setModalActived(true)}
                     icon='image-outline'
                     loading={uploading}

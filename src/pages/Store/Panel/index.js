@@ -24,7 +24,6 @@ export default function Panel() {
 		const token = await messaging().getToken();
 		if(!data || data != token) {
 			const { data } = await apiReq.post('panel', { token })
-			console.log(data)
 		}
 	}
 

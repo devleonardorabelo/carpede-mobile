@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { SafeAreaView, View, Text, FlatList, Alert } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
-import apiReq from '../../../services/reqToken'
+import apiReq from '../../../services/reqToken';
 
 import { treatPrice } from '../../../utils/treatString';
 
@@ -60,7 +60,7 @@ export default function Show() {
 
     return (
         <SafeAreaView style={styles.container}>
-
+            
             <Header title={`#${order.order_id}`}>
                 <LinearButton icon={'trash-can-outline'} action={handleDelete}/>
             </Header>

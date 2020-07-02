@@ -34,8 +34,6 @@ export default function Products() {
 
         setLoading(true);
 
-        console.log(apiReq)
-
         const { data, headers } = await apiReq.get('products',{ 
             params: { page, category: category._id },
         });   
