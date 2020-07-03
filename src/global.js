@@ -35,9 +35,6 @@ export default StyleSheet.create({
         flexDirection: 'column',
         paddingHorizontal: 16,
     },
-    scrollHorizontal: {
-        paddingLeft: 16,
-    },
     alignCenterX: {
         justifyContent: 'center'
     },
@@ -200,7 +197,7 @@ export default StyleSheet.create({
         height: 40,
         minWidth: 120,
         borderRadius: 8,
-        marginBottom: 16,
+        marginBottom: 12,
         marginRight: 4,
         justifyContent: 'center',
         alignItems: 'center',

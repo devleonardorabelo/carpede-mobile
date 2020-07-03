@@ -140,8 +140,10 @@ export default function NewProduct() {
                     status={status} 
                     disabled={uploading} 
                     disabledText='Carregando Imagem...'
-                />      
+                />
+                      
             </ScrollView>
+
             <ChooseImageMode 
                 title='Escolha uma opção' 
                 actionClose={() => setModalActived(false)}
@@ -149,6 +151,7 @@ export default function NewProduct() {
                 actionGallery={() => getImage('gallery')}
                 active={modalActived}
             />
+
         </SafeAreaView>
     )
 }

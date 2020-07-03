@@ -4,7 +4,8 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 
 import apiReq from '../../../services/reqToken';
 
-import styles from '../../../global';import Skeleton from '../../../components/Skeleton';
+import styles from '../../../global';
+import Skeleton from '../../../components/Skeleton';
 import { Header } from '../../../components/Header';
 import { Card } from '../../../components/Item';
 import { ActionButton, FilterButton } from '../../../components/Button';

@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, Linking } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { format } from '@buttercup/react-formatted-input';
 import { WhatsappFormat, treatPrice } from '../utils/treatString';
+import { getDateNow } from '../utils/getDateNow';
 
 import styles from '../global';
 
@@ -18,6 +19,12 @@ export function InfoOrder(props) {
 
     const navigateToDelivery = () => navigation.navigate('StoreDelivery', { order: props.data });
 
+    const [ dateNow, setDateNow ] = useState('')
+
+    useEffect(() => {
+        setDateNow(getDateNow());
+    },[])
+
     return (
 
         <View style={{ marginTop: 64 }}>
@@ -30,24 +37,24 @@ export function InfoOrder(props) {
 
             <View style={[styles.row,{ marginBottom: 16 }]}>
                 
-                <View style={[styles.box, styles.column,{ marginRight: 16 }]}>
+                <View style={[styles.box, styles.column,{ marginRight: 8 }]}>
                     <Text style={styles.text}>Total</Text>
-                    <Text style={styles.textBold}>{treatPrice(props.data.value)}</Text> 
+                    <Text style={styles.textBold}>{treatPrice(props.data.value + props.data.fees.payment + props.data.fees.delivery)}</Text> 
                 </View>
 
                 { props.data.paymentMethod.money && <>
-                    <View style={[styles.box, styles.column,{ marginRight: 16 }]}>
+                    <View style={[styles.box, styles.column,{ marginRight: 8 }]}>
                         <Text style={styles.text}>Dinheiro</Text>
                         <Text style={styles.textBold}>{treatPrice(props.data.paymentMethod.money.amount)}</Text>   
                     </View>
-                    <View style={[styles.box, styles.column]}>
+                    <View style={[styles.box, styles.column, { flexGrow: 1 }]}>
                         <Text style={styles.text}>Troco</Text>
-                        <Text style={styles.textBold}>{treatPrice(props.data.paymentMethod.money.change)}</Text>   
+                        <Text style={styles.textBold}>{treatPrice(props.data.paymentMethod.money.amount - ( props.data.value + props.data.fees.payment + props.data.fees.delivery ))}</Text>   
                     </View>
                     </>
                 }
                 { props.data.paymentMethod.card &&
-                    <View style={[styles.box, styles.column,{ marginRight: 16 }]}>
+                    <View style={[styles.box, styles.column]}>
                         <Text style={styles.text}>Cartão</Text>
                         <Text style={styles.textBold}>
                             {props.data.paymentMethod.card.method == 'credit' && `Crédito`}
@@ -84,12 +91,12 @@ export function InfoOrder(props) {
            
 
             <View style={styles.column}>
-                {props.data.status == 'waiting' ? 
-                    <Button title='Encerrar Pedido' action={props.action} />
-                :
-                    <Button action={props.action} disabled={true} disabledText='Pedido Encerrado'/>
-                }
-                
+                {props.data.date == dateNow && props.data.status == 'waiting' && 
+                    <Button title='Enviar para a Entrega' action={props.action} />}
+                {props.data.date != dateNow && props.data.status == 'waiting' &&
+                    <Button disabled={true} disabledText='Pedido Perdido'/>}
+                {props.data.status == 'done' &&
+                    <Button disabled={true} disabledText='Pedido Encerrado'/>}
             </View>
         </View>
     )

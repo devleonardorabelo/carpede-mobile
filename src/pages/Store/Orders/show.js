@@ -16,8 +16,8 @@ export default function Show() {
     const [ loading, setLoading ] = useState(false);
 
     const navigation = useNavigation();
-    const route = useRoute();
-    const order = route.params.order;
+    const { params } = useRoute();
+    const { order } = params;
 
     async function handleUpdate() {
 
@@ -37,7 +37,8 @@ export default function Show() {
                     });   
                 }}
             ]
-        )
+        )    
+        
     }
 
     async function handleDelete() {  
@@ -88,9 +89,19 @@ export default function Show() {
                     />
                 )}
                 ListFooterComponent={
-                    <View style={{ marginTop: 16 }}>
-                        <Text style={styles.text}>Total:</Text>
-                        <Text style={styles.subtitle}>{treatPrice(order.value)}</Text>    
+                    <View style={{ marginTop: 16, flexDirection: 'row', justifyContent: 'space-between' }}>
+                        <View style={[styles.box, styles.column,{ marginRight: 8 }]}>
+                            <Text style={styles.text}>Entrega</Text>
+                            <Text style={styles.textBold}>{treatPrice(order.fees.delivery)}</Text>
+                        </View>
+                        <View style={[styles.box, styles.column,{ marginRight: 8 }]}>
+                            <Text style={styles.text}>Taxas</Text>
+                            <Text style={styles.textBold}>{treatPrice(order.fees.payment)}</Text>
+                        </View>
+                        <View style={[styles.box, styles.column, { flexGrow: 1 }]}>
+                            <Text style={styles.text}>Total</Text>
+                            <Text style={styles.textBold}>{treatPrice(order.value + order.fees.delivery + order.fees.payment)}</Text>
+                        </View>   
                     </View>
                 }
             />    

@@ -73,8 +73,8 @@ export default function EditProduct() {
     async function handleDelete(id) {
 
         Alert.alert(
-            'Apagar Pedido',
-            'Deseja mesmo apagar este produto? Produtos apagados não poderão ser mais recuperados e todos os pedidos que possuem este produto serão excluidos permanentemente.',
+            'Apagar Produto',
+            'Deseja mesmo apagar este produto? Produtos apagados não poderão ser mais recuperados e serão excluidos permanentemente.',
             [
                 { text: 'Cancelar', onPress: () => { return }, style: 'cancel' },
                 { text: 'Apagar', onPress: async () => {

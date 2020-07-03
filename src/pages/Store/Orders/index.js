@@ -12,6 +12,7 @@ import { CardOrder, Card } from '../../../components/Item';
 import img_delivery from '../../../assets/illustrations/delivery.png';
 import img_sad_face from '../../../assets/illustrations/sad_face.png';
 import img_happy_face from '../../../assets/illustrations/happy_face.png';
+import { ScrollView } from 'react-native-gesture-handler';
 
 export default function Order() {
 
@@ -81,36 +82,38 @@ export default function Order() {
         <SafeAreaView style={styles.container}>
 
             <Header title={'pedidos'}/>
-
-            <View style={styles.row}>
-                <TouchableOpacity onPress={() => loadOrdersWithParams('waiting')}>
-                    <Gradient
-                        style={styles.buttonTag}
-                        start={{x: 0.0, y: 0.25}} end={{x: 0.5, y: 1.0}}
-                        colors={status == 'waiting' ? ['#FF7239', '#FF4700'] : ['#E2E2E2', '#E2E2E2']}
-                    >
-                        <Text style={[styles.textSemiBold, status == 'waiting' && { color: '#FFFFFF' } ]}>Aguardando</Text>
-                    </Gradient>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => loadOrdersWithParams('done')}>
-                    <Gradient
-                        style={styles.buttonTag}
-                        start={{x: 0.0, y: 0.25}} end={{x: 0.5, y: 1.0}}
-                        colors={status == 'done' ? ['#FF7239', '#FF4700'] : ['#E2E2E2', '#E2E2E2']}
-                    >
-                        <Text style={[styles.textSemiBold, status == 'done' && { color: '#FFFFFF' } ]}>Entregues</Text>
-                    </Gradient>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => loadOrdersWithParams('lost')}>
-                    <Gradient
-                        style={styles.buttonTag}
-                        start={{x: 0.0, y: 0.25}} end={{x: 0.5, y: 1.0}}
-                        colors={status == 'lost' ? ['#FF7239', '#FF4700'] : ['#E2E2E2', '#E2E2E2']}
-                    >
-                        <Text style={[styles.textSemiBold, status == 'lost' && { color: '#FFFFFF' } ]}>Perdidos</Text>
-                    </Gradient>
-                </TouchableOpacity>
+            <View>
+                <ScrollView horizontal={true} style={{ marginBottom: 8 }}>
+                    <TouchableOpacity onPress={() => loadOrdersWithParams('waiting')}>
+                        <Gradient
+                            style={[styles.buttonTag, { marginLeft: 16 }]}
+                            start={{x: 0.0, y: 0.25}} end={{x: 0.5, y: 1.0}}
+                            colors={status == 'waiting' ? ['#FF7239', '#FF4700'] : ['#E2E2E2', '#E2E2E2']}
+                        >
+                            <Text style={[styles.textSemiBold, status == 'waiting' && { color: '#FFFFFF' } ]}>Aguardando</Text>
+                        </Gradient>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => loadOrdersWithParams('done')}>
+                        <Gradient
+                            style={styles.buttonTag}
+                            start={{x: 0.0, y: 0.25}} end={{x: 0.5, y: 1.0}}
+                            colors={status == 'done' ? ['#FF7239', '#FF4700'] : ['#E2E2E2', '#E2E2E2']}
+                        >
+                            <Text style={[styles.textSemiBold, status == 'done' && { color: '#FFFFFF' } ]}>Entregues</Text>
+                        </Gradient>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => loadOrdersWithParams('lost')}>
+                        <Gradient
+                            style={[styles.buttonTag, { marginRight: 16 }]}
+                            start={{x: 0.0, y: 0.25}} end={{x: 0.5, y: 1.0}}
+                            colors={status == 'lost' ? ['#FF7239', '#FF4700'] : ['#E2E2E2', '#E2E2E2']}
+                        >
+                            <Text style={[styles.textSemiBold, status == 'lost' && { color: '#FFFFFF' } ]}>Perdidos</Text>
+                        </Gradient>
+                    </TouchableOpacity>
+                </ScrollView>    
             </View>
+            
 
             <FlatList
                 style={styles.column}
@@ -128,7 +131,7 @@ export default function Order() {
                         subtitle={order.customer.name}
                         address={`${order.customer.address} ${order.customer.complement} ${order.customer.number}`}
                         time={order.time}
-                        price={order.value}
+                        price={order.value + order.fees.delivery + order.fees.payment}
                         status={[status, order.date, order.deliveredAt]}
                     />
                 )}

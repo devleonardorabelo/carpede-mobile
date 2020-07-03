@@ -138,13 +138,13 @@ export default function Products() {
                 />
             </Header>
 
-            <View style={styles.scrollHorizontal}>
-
+            <View >
                 <FlatList
+                    style={{ marginBottom: 8 }}
                     data={categories}
                     keyExtractor={category => String(category._id)}
                     horizontal={true}
-                    showsHorizontalScrollIndicator={false}
+                    showsHorizontalScrollIndicator={true}
                     renderItem={({ item: thisCategory }) => (
                         <TouchableOpacity onPress={() => loadProductWithParams(thisCategory)}>
                             <Gradient
@@ -165,7 +165,7 @@ export default function Products() {
                         categories.length !== 0 &&
                         <TouchableOpacity onPress={() => loadProductWithParams({})}>
                             <Gradient
-                                style={styles.buttonTag}
+                                style={[styles.buttonTag, { marginLeft: 16 }]}
                                 start={{x: 0.0, y: 0.25}} end={{x: 0.5, y: 1.0}}
                                 colors={!category._id ? ['#FF7239', '#FF4700'] : ['#E2E2E2', '#E2E2E2']}
                             >
@@ -193,7 +193,7 @@ export default function Products() {
                         <TouchableOpacity
                             style={[
                                 styles.buttonTag,
-                                { borderColor: '#FF4700', borderWidth: 3, backgroundColor: 'none' }
+                                { borderColor: '#FF4700', borderWidth: 3, backgroundColor: 'none', marginRight: 16 }
                             ]}
                             onPress={navigateToNewCategory}
                         >
@@ -256,7 +256,7 @@ export default function Products() {
             />
             
             <View style={styles.absoluteBottomRight}>
-                {category != null && <ActionButton icon={'plus'} action={navigateToNewProduct}/>}
+                {category.name && <ActionButton icon={'plus'} action={navigateToNewProduct}/>}
             </View>        
                 
             

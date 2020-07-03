@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { SafeAreaView, View, Text, Linking, Clipboard } from 'react-native';
+import { SafeAreaView, View, Text, Linking } from 'react-native';
 import { LocationMap } from '../../../components/Map';
 import { useRoute } from '@react-navigation/native';
+import Clipboard from '@react-native-community/clipboard';
 import styles from '../../../global';
 
 import { TransparentHeader } from '../../../components/Header';

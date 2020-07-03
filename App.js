@@ -40,6 +40,8 @@ export default function App() {
 
       notifyNewOrder(order => {
 
+        PushNotification.cancelLocalNotifications({ id: '65487412' });
+
         PushNotification.localNotification({
           id: '65487412',
           visibility: "public",

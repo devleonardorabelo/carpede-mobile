@@ -11,6 +11,8 @@ export function LocationMap(props) {
     const [ currentRegion, setCurrentRegion ] = useState({
         latitude: 0,
         longitude: 0,
+        latitudeDelta: 0.04,
+        longitudeDelta: 0.04,
     });
     const [ latitude, setLatitude ] = useState(props.latitude);
     const [ longitude, setLongitude ] = useState(props.longitude);
