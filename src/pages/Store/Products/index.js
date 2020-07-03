@@ -10,7 +10,8 @@ import { Header } from '../../../components/Header';
 import { Card } from '../../../components/Item';
 import { ActionButton, FilterButton, Button } from '../../../components/Button';
 
-import img_more from '../../../assets/illustrations/more.png'
+import img_category from '../../../assets/illustrations/category.png';
+import img_product from '../../../assets/illustrations/product.png'
 
 export default function Products() {
 
@@ -242,15 +243,17 @@ export default function Products() {
                     :
                     !loading && categories.length === 0 && page !=1 ?
                         <View style={{ paddingTop: 16 }}>
-                            <Text style={[styles.subtitle, { marginBottom: 10 }]}>Adicione sua primeira Categoria</Text>
+                            <Text style={[styles.title, { marginBottom: 10 }]}>Categoria</Text>
                             <Text style={styles.text}>As categorias servem para organizar a lista dos seus produtos. Clique abaixo e adicione sua primeira categoria.</Text>
-                            <Image style={styles.illustration} source={img_more}/>
+                            <Image style={[styles.illustration,{ marginVertical: 32 }]} source={img_category}/>
                             <Button title='Adicionar agora' action={navigateToNewCategory}/>
                         </View>
                     :
                     !loading && products.length === 0 && page !=1 &&
                         <View style={{ paddingTop: 16 }}>
+                            <Text style={[styles.title, { marginBottom: 10 }]}>{category.name || 'Todos'}</Text>
                             <Text style={styles.subtitle}>Nenhum Produto nessa categoria. Clique no botão abaixo "+" e adicione!</Text>
+                            <Image style={[styles.illustration,{ marginVertical: 32 }]} source={img_product}/>
                         </View>
                 }                
             />
