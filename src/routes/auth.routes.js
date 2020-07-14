@@ -17,19 +17,37 @@ import StoreDelivery from '../pages/Store/Orders/delivery';
 const AuthStack = createStackNavigator();
 
 const AuthRoutes = () => (
-    <AuthStack.Navigator screenOptions={{ headerShown: false }}>
-        <AuthStack.Screen name="StorePanel" component={StorePanel}/>
-        <AuthStack.Screen name="StoreProfile" component={StoreProfile}/>
-        <AuthStack.Screen name="StoreProducts" component={StoreProducts}/>
-        <AuthStack.Screen name="StoreProductEdit" component={StoreProductEdit}/>
-        <AuthStack.Screen name="StoreProductNew" component={StoreProductNew}/>
-        <AuthStack.Screen name="StoreLoadCategory" component={StoreLoadCategory}/>
-        <AuthStack.Screen name="StoreCategories" component={StoreCategories}/>
-        <AuthStack.Screen name="StoreCategoryEdit" component={StoreCategoryEdit}/>
-        <AuthStack.Screen name="StoreCategoryNew" component={StoreCategoryNew}/>
-        <AuthStack.Screen name="StoreOrders" component={StoreOrders}/>
-        <AuthStack.Screen name="StoreOrder" component={StoreOrder}/>
-        <AuthStack.Screen name="StoreDelivery" component={StoreDelivery}/>
-    </AuthStack.Navigator>
-)
+  <AuthStack.Navigator
+    screenOptions={{
+      headerShown: false,
+      cardStyleInterpolator: ({ current, layouts }) => {
+        return {
+          cardStyle: {
+            transform: [
+              {
+                translateX: current.progress.interpolate({
+                  inputRange: [0, 1],
+                  outputRange: [layouts.screen.width, 0],
+                }),
+              },
+            ],
+          },
+        };
+      },
+    }}
+  >
+    <AuthStack.Screen name="StorePanel" component={StorePanel} />
+    <AuthStack.Screen name="StoreProfile" component={StoreProfile} />
+    <AuthStack.Screen name="StoreProducts" component={StoreProducts} />
+    <AuthStack.Screen name="StoreProductEdit" component={StoreProductEdit} />
+    <AuthStack.Screen name="StoreProductNew" component={StoreProductNew} />
+    <AuthStack.Screen name="StoreLoadCategory" component={StoreLoadCategory} />
+    <AuthStack.Screen name="StoreCategories" component={StoreCategories} />
+    <AuthStack.Screen name="StoreCategoryEdit" component={StoreCategoryEdit} />
+    <AuthStack.Screen name="StoreCategoryNew" component={StoreCategoryNew} />
+    <AuthStack.Screen name="StoreOrders" component={StoreOrders} />
+    <AuthStack.Screen name="StoreOrder" component={StoreOrder} />
+    <AuthStack.Screen name="StoreDelivery" component={StoreDelivery} />
+  </AuthStack.Navigator>
+);
 export default AuthRoutes;

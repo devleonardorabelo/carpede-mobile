@@ -1,139 +1,174 @@
+/* eslint-disable consistent-return */
 import React from 'react';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import styles from '../global';
 
-export function Input(props) {
+export const Input = ({
+  error,
+  name,
+  style,
+  title,
+  placeholder,
+  action,
+  defaultValue,
+  keyboard,
+  focus,
+  maxLength,
+  capitalize,
+}) => {
+  const err = () => {
+    if (!error) return;
+    if (error.input === name) return true;
+  };
 
-    const err = () => {
-        if(!props.error) return;
-        if(props.error.input == props.name) return true;
-    }
+  const treatContent = (content) => {
+    if (typeof content === 'number') return content.toFixed(2);
+    return content;
+  };
 
-    function treatContent(content){
-        if(typeof content === 'number') return content.toFixed(2);
-        return content;
-    }
-
-    return (
-        <View style={[styles.groupInput, props.style ]}>
-            <View style={styles.labelInput}>
-                <Text
-                    style={[styles.labelText, styles.textSemiBold, {
-                        color: err() ? '#E63B2E' : '#333333'
-                    }]}>
-                    {props.title}
-                </Text>
-            </View>
-            <TextInput
-                style={[styles.textInput,{
-                    borderColor: err() ? '#E63B2E' : '#E2E2E2',
-                    borderWidth: err() ? 2 : 1,
-                }]}
-                placeholder={props.placeholder}
-                onChangeText={props.action}
-                defaultValue={treatContent(props.default)}
-                autoFocus={props.focus || false}
-                keyboardType={props.keyboard || 'default'}
-                maxLength={props.maxLength || 20}
-                autoCapitalize= { props.capitalize || 'sentences' }
-            />
-            {err() && <Text style={styles.inputTextAlert}>{props.error.text}</Text>} 
-        </View>
-    )
-}
-
-export function InputPassword(props) {
-
-    const err = () => {
-        if(!props.error) return;
-        if(props.error.input == props.name) return true;
-    }
-
-    return (
-        <View style={styles.groupInput}>
-            <View style={styles.labelInput}>
-                <Text
-                    style={[styles.labelText, styles.textSemiBold, {
-                        color: err()  ? '#E63B2E' : '#333333'
-                    }]}>
-                    {props.title}
-                </Text>
-            </View>
-            <TextInput
-                style={[styles.textInput,{
-                    borderColor: err()  ? '#E63B2E' : '#E2E2E2',
-                    borderWidth: err()  ? 2 : 1,
-                }]}
-                onChangeText={props.action}
-                secureTextEntry={true}
-                password={true}
-                placeholder={props.placeholder}
-                maxLength={20}                 
-            />
-            {err() && <Text style={styles.inputTextAlert}>{props.error.text}</Text>} 
-        </View>
-    )
-}
-
-export function TextArea(props) {
-
-    const err = () => {
-        if(!props.error) return;
-        if(props.error.input == props.name) return true;
-    }
-
-    return (
-        <View style={styles.groupInput}>
-            <View style={styles.labelInput}>
-                <Text style={[styles.labelText, styles.textSemiBold]}>{props.title}</Text>
-            </View>
-            <TextInput
-                multiline={true}
-                numberOfLines={10}
-                style={styles.textareaInput}
-                defaultValue={props.default}
-                onChangeText={props.action}
-                placeholder={props.placeholder}
-                maxLength={100 || props.maxLength}
-            />
-            {err() && <Text style={styles.inputTextAlert}>{props.error.text}</Text>} 
-        </View>
-    )
-}
-
-export function Select(props){
-
-    const err = () => {
-        if(!props.error) return;
-        if(props.error.input == props.name) return true;
-    }
-
-    return(
-        <TouchableOpacity
-            style={[styles.groupInput, props.style]}
-            onPress={props.action}
+  return (
+    <View style={[styles.groupInput, style]}>
+      <View style={styles.labelInput}>
+        <Text
+          style={[
+            styles.labelText,
+            styles.textSemiBold,
+            {
+              color: err() ? '#E63B2E' : '#333333',
+            },
+          ]}
         >
-            <View style={styles.labelInput}>
-                <Text
-                    style={[styles.labelText, styles.textSemiBold, {
-                        color: err()  ? '#E63B2E' : '#333333'
-                    }]}>
-                    {props.title}
-                </Text>
-            </View>
-            <Text
-                style={[
-                    styles.textInput,{
-                    borderColor: err()  ? '#E63B2E' : '#E2E2E2',
-                    borderWidth: err()  ? 2 : 1,
-                    textAlignVertical: 'center'
-                }
-            ]}>
-                {props.text}
-            </Text>
-            {err() && <Text style={styles.inputTextAlert}>{props.error.text}</Text>}   
-        </TouchableOpacity>
-        
-        
-    )
-}
+          {title}
+        </Text>
+      </View>
+      <TextInput
+        style={[
+          styles.textInput,
+          {
+            borderColor: err() ? '#E63B2E' : '#E2E2E2',
+            borderWidth: err() ? 2 : 1,
+          },
+        ]}
+        placeholder={placeholder}
+        onChangeText={action}
+        defaultValue={treatContent(defaultValue)}
+        autoFocus={focus || false}
+        keyboardType={keyboard || 'default'}
+        maxLength={maxLength || 20}
+        autoCapitalize={capitalize || 'sentences'}
+      />
+      {err() && <Text style={styles.inputTextAlert}>{error.text}</Text>}
+    </View>
+  );
+};
+
+export const InputPassword = ({ error, name, title, action, placeholder }) => {
+  const err = () => {
+    if (!error) return;
+    if (error.input === name) return true;
+  };
+
+  return (
+    <View style={styles.groupInput}>
+      <View style={styles.labelInput}>
+        <Text
+          style={[
+            styles.labelText,
+            styles.textSemiBold,
+            {
+              color: err() ? '#E63B2E' : '#333333',
+            },
+          ]}
+        >
+          {title}
+        </Text>
+      </View>
+      <TextInput
+        style={[
+          styles.textInput,
+          {
+            borderColor: err() ? '#E63B2E' : '#E2E2E2',
+            borderWidth: err() ? 2 : 1,
+          },
+        ]}
+        onChangeText={action}
+        placeholder={placeholder}
+        maxLength={20}
+        secureTextEntry
+        password
+      />
+      {err() && <Text style={styles.inputTextAlert}>{error.text}</Text>}
+    </View>
+  );
+};
+
+export const TextArea = ({
+  error,
+  name,
+  title,
+  defaultValue,
+  action,
+  placeholder,
+  maxLength,
+}) => {
+  const err = () => {
+    if (!error) return;
+    if (error.input === name) return true;
+  };
+
+  return (
+    <View style={styles.groupInput}>
+      <View style={styles.labelInput}>
+        <Text style={[styles.labelText, styles.textSemiBold]}>{title}</Text>
+      </View>
+      <TextInput
+        multiline
+        numberOfLines={10}
+        style={styles.textareaInput}
+        defaultValue={defaultValue}
+        onChangeText={action}
+        placeholder={placeholder}
+        maxLength={100 || maxLength}
+      />
+      {err() && <Text style={styles.inputTextAlert}>{error.text}</Text>}
+    </View>
+  );
+};
+
+export const Select = ({ error, name, style, action, title, text }) => {
+  const err = () => {
+    if (!error) return;
+    if (error.input === name) return true;
+  };
+
+  return (
+    <TouchableOpacity style={[styles.groupInput, style]} onPress={action}>
+      <View style={styles.labelInput}>
+        <Text
+          style={[
+            styles.labelText,
+            styles.textSemiBold,
+            {
+              color: err() ? '#E63B2E' : '#333333',
+            },
+          ]}
+        >
+          {title}
+        </Text>
+      </View>
+      <Text
+        style={[
+          styles.textInput,
+          {
+            borderColor: err() ? '#E63B2E' : '#E2E2E2',
+            borderWidth: err() ? 2 : 1,
+            textAlignVertical: 'center',
+          },
+        ]}
+      >
+        {text}
+      </Text>
+      {err() && <Text style={styles.inputTextAlert}>{error.text}</Text>}
+    </TouchableOpacity>
+  );
+};

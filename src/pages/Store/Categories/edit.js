@@ -113,7 +113,7 @@ export default function EditCategory() {
         <Input
           title="Nome"
           name="name"
-          default={category.name}
+          defaultValue={category.name}
           action={(e) => setName(e)}
           maxLength={40}
           error={alert}

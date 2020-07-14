@@ -1,8 +1,7 @@
-import React,{ useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { Animated } from 'react-native';
 
-export default function Skeleton(props) {
-
+export default function Skeleton({ style, children }) {
   const fade = useRef(new Animated.Value(0)).current;
 
   function animateBack() {
@@ -10,30 +9,23 @@ export default function Skeleton(props) {
       Animated.sequence([
         Animated.timing(fade, {
           toValue: 1,
-          duration: 500, 
+          duration: 500,
           useNativeDriver: true,
         }),
         Animated.timing(fade, {
           toValue: 0,
           duration: 1000,
           useNativeDriver: true,
-        })
-      ]),
-      {
-        //iterations: 10
-      }
+        }),
+      ])
     ).start();
   }
 
   useEffect(() => {
     animateBack();
-  },[])
+  }, []);
 
   return (
-    <Animated.View
-      style={[props.style, {opacity: fade}]}
-    >
-      {props.children}
-    </Animated.View>
+    <Animated.View style={[style, { opacity: fade }]}>{children}</Animated.View>
   );
 }

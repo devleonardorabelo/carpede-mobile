@@ -117,19 +117,19 @@ export default function Profile() {
         <Input
           title="Nome da Loja"
           name="name"
-          default={name}
+          defaultValue={name}
           action={(e) => setName(e)}
           error={alert}
         />
         <TextArea
           title="Descrição"
-          default={description}
+          defaultValue={description}
           action={(e) => setDescription(e)}
         />
         <Input
           title="Whatsapp"
           name="whatsapp"
-          default={whatsapp.raw}
+          defaultValue={whatsapp.raw}
           action={(number) => maskWhatsapp(number)}
           keyboard="phone-pad"
           maxLength={11}
@@ -137,14 +137,14 @@ export default function Profile() {
         />
         <Input
           title="Telefone"
-          default={phone}
+          defaultValue={phone}
           action={(e) => setPhone(e)}
           keyboard="numeric"
           maxLength={10}
         />
         <TextArea
           title="Principais Produtos"
-          default={tags}
+          defaultValue={tags}
           action={(e) => setTags(e)}
           placeholder="ex:  sapato, camisa, meia, tênis, calça, bermuda"
         />

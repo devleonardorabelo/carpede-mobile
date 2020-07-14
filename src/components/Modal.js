@@ -2,64 +2,74 @@ import React from 'react';
 import { View, Text } from 'react-native';
 
 import styles from '../global';
-import { LinearButton, ActionButton} from '../components/Button'
+import { LinearButton, ActionButton } from './Button';
 
-export function AlertCenter(props) {
-    return (
-        props.active ?
-        <View style={styles.backgroundModal}>
-            <View style={styles.modal}>
-                <View style={styles.headerModal}>
-                    <Text style={[styles.textBold,{ width:'85%' }]}>{props.title}</Text>
-                    <LinearButton style={{ width: '10%' }} icon='close' action={props.actionClose} />
-                </View>
-                <Text style={styles.text}>{props.text}</Text>
-            </View>
+export const AlertCenter = ({ active, title, actionClose, text }) => {
+  return active ? (
+    <View style={styles.backgroundModal}>
+      <View style={styles.modal}>
+        <View style={styles.headerModal}>
+          <Text style={[styles.textBold, { width: '85%' }]}>{title}</Text>
+          <LinearButton
+            style={{ width: '10%' }}
+            icon="close"
+            action={actionClose}
+          />
         </View>
-        :null
-    )
-}
+        <Text style={styles.text}>{text}</Text>
+      </View>
+    </View>
+  ) : null;
+};
 
-export function AlertNotification(props) {
-    return (
-        <View style={[styles.alertBottom,{ bottom: props.show ? 0 : -999 }]}>
-            <Text style={[styles.textBold, { color: '#FFFFFF' }]}>{props.title}</Text>
-            <Text style={[styles.text, { color: '#FFFFFF' }]}>{props.text}</Text>
-        </View>
-    )
-}
+export const AlertNotification = ({ show, title, text }) => (
+  <View style={[styles.alertBottom, { bottom: show ? 0 : -999 }]}>
+    <Text style={[styles.textBold, { color: '#FFFFFF' }]}>{title}</Text>
+    <Text style={[styles.text, { color: '#FFFFFF' }]}>{text}</Text>
+  </View>
+);
 
-export function ChooseImageMode(props) {
-    return (
-        props.active ?
-        <View style={styles.backgroundModal}>
-            <View style={styles.modal}>
-                <View style={styles.headerModal}>
-                    <Text style={[styles.textBold, { marginRight: 20 }]}>{props.title}</Text>
-                    <LinearButton icon='close' action={props.actionClose} />
-                </View>
-                <View style={[styles.row, { justifyContent: 'center' }]}>
-                    <ActionButton style={{ marginRight: 8 }} icon='camera-outline' action={props.actionCamera} />
-                    <ActionButton style={{ marginLeft: 8 }} icon='image-filter' action={props.actionGallery} />
-                </View>
-            </View>
+export const ChooseImageMode = ({
+  active,
+  title,
+  actionClose,
+  actionCamera,
+  actionGallery,
+}) => {
+  return active ? (
+    <View style={styles.backgroundModal}>
+      <View style={styles.modal}>
+        <View style={styles.headerModal}>
+          <Text style={[styles.textBold, { marginRight: 20 }]}>{title}</Text>
+          <LinearButton icon="close" action={actionClose} />
         </View>
-        :null
-    )
-}
+        <View style={[styles.row, { justifyContent: 'center' }]}>
+          <ActionButton
+            style={{ marginRight: 8 }}
+            icon="camera-outline"
+            action={actionCamera}
+          />
+          <ActionButton
+            style={{ marginLeft: 8 }}
+            icon="image-filter"
+            action={actionGallery}
+          />
+        </View>
+      </View>
+    </View>
+  ) : null;
+};
 
-export function Modal(props) {
-    return (
-        props.active ?
-        <View style={styles.backgroundModal}>
-            <View style={styles.modal}>
-                <View style={styles.headerModal}>
-                    <Text style={[styles.textBold, { marginRight: 20 }]}>{props.title}</Text>
-                    <LinearButton icon='close' action={props.actionClose} />
-                </View>
-                {props.children}
-            </View>
+export const Modal = ({ active, title, actionClose, children }) => {
+  return active ? (
+    <View style={styles.backgroundModal}>
+      <View style={styles.modal}>
+        <View style={styles.headerModal}>
+          <Text style={[styles.textBold, { marginRight: 20 }]}>{title}</Text>
+          <LinearButton icon="close" action={actionClose} />
         </View>
-        :null
-    )
-}
+        {children}
+      </View>
+    </View>
+  ) : null;
+};

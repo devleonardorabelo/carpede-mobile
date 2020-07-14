@@ -132,7 +132,7 @@ export default function EditProduct() {
           <Input
             title="Nome"
             name="name"
-            default={product.name}
+            defaultValue={product.name}
             action={(e) => setName(e)}
             maxLength={40}
             error={alert}
@@ -140,7 +140,7 @@ export default function EditProduct() {
           <TextArea
             title="Descrição"
             name="description"
-            default={product.description}
+            defaultValue={product.description}
             action={(e) => setDescription(e)}
             maxLength={100}
             error={alert}
@@ -158,7 +158,7 @@ export default function EditProduct() {
               title="Preço"
               name="price"
               keyboard="numeric"
-              default={product.price}
+              defaultValue={product.price}
               action={(e) => setPrice(e)}
               maxLength={8}
               error={alert}
