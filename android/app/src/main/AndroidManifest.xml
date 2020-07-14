@@ -32,7 +32,7 @@
       <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
       <meta-data
         android:name="com.google.android.geo.API_KEY"
-        android:value="AIzaSyByogxOdgr6KvZf8yAxOGrG_BDvc0qs40k"/>
+        android:value="AIzaSyDOLDsqJYLsH8c_7SebhvPbxAqTt0AzUek"/>
 
       <meta-data
         android:name="com.google.firebase.messaging.default_notification_icon"

@@ -274,7 +274,7 @@ export const Checkout = ({ data, action }) => {
             },
           ]}
         >
-          <Gradient colors={['#FF4700', '#FF7239']}>
+          <Gradient colors={['#FF4700', '#FF4700']}>
             <TouchableOpacity
               style={styles.orderDropButton}
               onPress={sendInfoClicked}

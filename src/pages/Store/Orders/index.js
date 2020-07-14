@@ -170,7 +170,7 @@ export default function Order() {
             subtitle={order.customer.name}
             address={`${order.customer.address} ${order.customer.complement} ${order.customer.number}`}
             time={order.time}
-            price={order.value + order.fees.delivery + order.fees.payment}
+            price={order.value}
             status={[status, order.date, order.deliveredAt]}
           />
         )}

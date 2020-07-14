@@ -16,6 +16,8 @@ export default function Show() {
   const { params } = useRoute();
   const { order } = params;
 
+  console.log(order.value);
+
   async function handleUpdate() {
     Alert.alert(
       'Confirmar Entrega',
@@ -97,7 +99,7 @@ export default function Show() {
           <CardItem
             amount={product.quantity}
             title={product.product.name}
-            price={product.product.price}
+            price={product.product.onSaleValue}
           />
         )}
         ListFooterComponent={
@@ -122,11 +124,7 @@ export default function Show() {
             </View>
             <View style={[styles.box, styles.column, { flexGrow: 1 }]}>
               <Text style={styles.text}>Total</Text>
-              <Text style={styles.textBold}>
-                {treatPrice(
-                  order.value + order.fees.delivery + order.fees.payment
-                )}
-              </Text>
+              <Text style={styles.textBold}>{treatPrice(order.value)}</Text>
             </View>
           </View>
         }
