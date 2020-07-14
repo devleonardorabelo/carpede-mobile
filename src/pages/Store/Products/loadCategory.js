@@ -1,5 +1,6 @@
+/* eslint-disable no-underscore-dangle */
 import React, { useState, useEffect } from 'react';
-import { FlatList, SafeAreaView, View, Text } from 'react-native';
+import { FlatList, SafeAreaView } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
 import apiReq from '../../../services/reqToken';
@@ -11,124 +12,120 @@ import { Card } from '../../../components/Item';
 import { FilterButton } from '../../../components/Button';
 
 export default function Categories() {
+  const navigation = useNavigation();
+  const { params } = useRoute();
 
-    const navigation = useNavigation();
-    const { params } = useRoute();
+  const [categories, setCategories] = useState([]);
+  const [sort, setSort] = useState(1);
+  const [total, setTotal] = useState(0);
+  const [page, setPage] = useState(1);
+  const [loadedPage, setLoadedPage] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-    const [ categories, setCategories ] = useState([]);
-    const [ sort, setSort ] = useState(1);
-    const [ total, setTotal ] = useState(0);
-    const [ page, setPage ] = useState(1);
-    const [ loadedPage, setLoadedPage ] = useState(false);
-    const [ loading, setLoading ] = useState(false);
+  async function loadCategories() {
+    if (loading) return;
 
-    async function loadCategories() {
+    if (total > 0 && categories.length === total) return;
 
-        if(loading) return
+    setLoading(true);
 
-        if(total > 0 && categories.length === total) return
+    const { data, headers } = await apiReq.get('categories', {
+      params: { page },
+    });
 
-        setLoading(true);
+    if (loadedPage === false) setLoadedPage(true);
 
-        const { data, headers } = await apiReq.get('categories',{ 
-            params: { page },
-        });
+    if (data.length) {
+      setCategories([...categories, ...data]);
+      setTotal(headers['x-total-count']);
+      setPage(page + 1);
+    }
 
-        if(loadedPage === false) setLoadedPage(true);
+    setLoading(false);
+  }
 
-        if(data.length) {
-            setCategories([...categories, ...data]);
-            setTotal(headers['x-total-count']);
-            setPage(page + 1);    
+  function sortCategories() {
+    categories.sort((a, b) => {
+      if (sort === 1) {
+        if (a.name < b.name) return 1;
+        if (a.name > b.name) return -1;
+      }
+      if (sort === -1) {
+        if (a.name < b.name) return -1;
+        if (a.name > b.name) return 1;
+      }
+      return 0;
+    });
+    setCategories([...categories]);
+  }
+
+  const navigateToEditProduct = (category) =>
+    navigation.navigate('StoreProductEdit', { category });
+
+  const navigateToNewProduct = (category) =>
+    navigation.navigate('StoreProductNew', { category });
+
+  useEffect(() => {
+    loadCategories();
+  }, []);
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <Header title="SELECIONE UMA CATEGORIA">
+        <FilterButton
+          action={() => {
+            if (sort !== 1) {
+              setSort(1);
+              sortCategories();
+            } else {
+              setSort(-1);
+              sortCategories();
+            }
+          }}
+          icon="filter-outline"
+          subIcon={sort === 1 ? 'alpha-z-box' : 'alpha-a-box'}
+        />
+      </Header>
+
+      <FlatList
+        style={styles.column}
+        data={categories}
+        keyExtractor={(item) => String(item._id)}
+        showsVerticalScrollIndicator={false}
+        onEndReached={loadCategories}
+        onEndReachedThreshold={0.3}
+        numColumns={1}
+        renderItem={({ item }) => (
+          <Card
+            action={() => {
+              if (params.type === 'edit') {
+                navigateToEditProduct(item);
+              } else {
+                navigateToNewProduct(item);
+              }
+            }}
+            image={item.image}
+            title={item.name}
+            price={item.price}
+          />
+        )}
+        ListEmptyComponent={
+          loading && (
+            <Skeleton>
+              <Card style={{ backgroundColor: '#F5F5F5', minHeight: 64 }} />
+              <Card style={{ backgroundColor: '#F5F5F5', minHeight: 64 }} />
+              <Card style={{ backgroundColor: '#F5F5F5', minHeight: 64 }} />
+              <Card style={{ backgroundColor: '#F5F5F5', minHeight: 64 }} />
+              <Card style={{ backgroundColor: '#F5F5F5', minHeight: 64 }} />
+              <Card style={{ backgroundColor: '#F5F5F5', minHeight: 64 }} />
+              <Card style={{ backgroundColor: '#F5F5F5', minHeight: 64 }} />
+              <Card style={{ backgroundColor: '#F5F5F5', minHeight: 64 }} />
+              <Card style={{ backgroundColor: '#F5F5F5', minHeight: 64 }} />
+              <Card style={{ backgroundColor: '#F5F5F5', minHeight: 64 }} />
+            </Skeleton>
+          )
         }
-        
-        setLoading(false);
-    }
-
-    function sortCategories() {
-        categories.sort((a, b) => {
-            if(sort == 1) {
-                if(a.name < b.name) return 1;
-                if(a.name > b.name) return -1;    
-            }
-            if(sort == -1) {
-                if(a.name < b.name) return -1;
-                if(a.name > b.name) return 1; 
-            }
-            return 0;
-        });
-        setCategories([...categories])
-    }
-
-    const navigateToEditProduct = category => navigation.navigate('StoreProductEdit', { category });
-
-    const navigateToNewProduct = category => navigation.navigate('StoreProductNew', { category })
-
-    useEffect(() => {
-        loadCategories();
-    },[])
-
-    return(
-
-        <SafeAreaView style={styles.container}>
-            <Header title={'SELECIONE UMA CATEGORIA'}>
-                <FilterButton
-                    action={() => {
-                        if(sort != 1) {
-                            setSort(1);
-                            sortCategories();
-                        } else{
-                            setSort(-1);
-                            sortCategories();
-                        }
-                    }}
-                    icon='filter-outline'
-                    subIcon={sort == 1 ? 'alpha-z-box' : 'alpha-a-box'}
-                />
-            </Header>
-            
-            <FlatList
-                    style={styles.column}
-                    data={categories}
-                    keyExtractor={categories => String(categories._id)}
-                    showsVerticalScrollIndicator={false}
-                    onEndReached={loadCategories}
-                    onEndReachedThreshold={0.3}
-                    numColumns={1}
-                    renderItem={({ item: categories }) => (
-                        
-                        <Card
-                            action={() => {
-                                params.type == 'edit' ?
-                                navigateToEditProduct(categories)
-                                :
-                                navigateToNewProduct(categories)
-                                
-                            }}
-                            image={categories.image}
-                            title={categories.name}
-                            price={categories.price}
-                        />
-                    )}
-                    ListEmptyComponent={
-                    
-                        loading &&
-                            <Skeleton>
-                                <Card style={{ backgroundColor: '#F5F5F5', minHeight: 64 }} />
-                                <Card style={{ backgroundColor: '#F5F5F5', minHeight: 64 }} />
-                                <Card style={{ backgroundColor: '#F5F5F5', minHeight: 64 }} />
-                                <Card style={{ backgroundColor: '#F5F5F5', minHeight: 64 }} />
-                                <Card style={{ backgroundColor: '#F5F5F5', minHeight: 64 }} />
-                                <Card style={{ backgroundColor: '#F5F5F5', minHeight: 64 }} />
-                                <Card style={{ backgroundColor: '#F5F5F5', minHeight: 64 }} />
-                                <Card style={{ backgroundColor: '#F5F5F5', minHeight: 64 }} />
-                                <Card style={{ backgroundColor: '#F5F5F5', minHeight: 64 }} />
-                                <Card style={{ backgroundColor: '#F5F5F5', minHeight: 64 }} />
-                            </Skeleton>
-                        
-                    } 
-                />
-
-        </SafeAreaView>
-    )
+      />
+    </SafeAreaView>
+  );
 }

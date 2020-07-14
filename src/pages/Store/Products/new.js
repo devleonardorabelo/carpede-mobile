@@ -15,143 +15,140 @@ import { Button } from '../../../components/Button';
 import { ChooseImageMode } from '../../../components/Modal';
 
 export default function NewProduct() {
+  const { params } = useRoute();
+  const navigation = useNavigation();
+  const { store } = useContext(AuthContext);
 
-    const { params } = useRoute();
-    const navigation = useNavigation();
-    const { store } = useContext(AuthContext);
+  const [image, setImage] = useState({});
+  const [uploading, setUploading] = useState(false);
+  const [name, setName] = useState('');
+  const [category, setCategory] = useState({});
+  const [description, setDescription] = useState('');
+  const [price, setPrice] = useState('');
+  const [alert, setAlert] = useState('');
+  const [status, setStatus] = useState(false);
+  const [modalActived, setModalActived] = useState(false);
 
-    const [ image, setImage ] = useState({});
-    const [ uploading, setUploading ] = useState(false);
-    const [ name, setName ] = useState('');
-    const [ category, setCategory ] = useState({});
-    const [ description, setDescription ] = useState('');
-    const [ price, setPrice ] = useState('');
-    const [ alert, setAlert ] = useState('');
-    const [ status, setStatus ] = useState(false);
-    const [ modalActived, setModalActived ] = useState(false);
+  async function getImage(mode) {
+    const picker = await openPicker(mode);
+    setModalActived(false);
+    if (picker.cancelled) return;
+    setUploading(true);
 
-    async function getImage(mode) {
-        let picker = await openPicker(mode);
-        setModalActived(false);
-        if(picker.cancelled) return;
-        setUploading(true);
+    const upload = await uploadImage(picker.path, store.store_id);
+    setImage({ uri: upload });
+    setUploading(false);
+  }
 
-        const upload = await uploadImage(picker.path, store.store_id);
-        setImage({ uri: upload })
-        setUploading(false);
+  async function handleNewProduct() {
+    setStatus('loading');
+
+    const { data } = await apiReq.post('products/new', {
+      image: image.uri,
+      name,
+      description,
+      price,
+      category,
+    });
+
+    if (data.error) {
+      setStatus();
+      setAlert(data.error);
+      return;
     }
 
-    async function handleNewProduct() {
+    setStatus('done');
 
-        setStatus('loading');
-        
-        let { data } = await apiReq.post('products/new',{
-            image: image.uri,
-            name,
-            description,
-            price,
-            category
-        })
+    setTimeout(() => {
+      navigation.navigate('StoreProducts', {
+        method: 'create',
+        product: data.product,
+      });
+    }, 500);
+  }
 
-        if(data.error) {
-            setStatus();
-            setAlert(data.error);
-            return;
-        };
+  const navigateToSelectCategory = () =>
+    navigation.navigate('StoreLoadCategory', { type: 'add' });
 
-        setStatus('done');
-
-        setTimeout(() => { navigation.navigate('StoreProducts', {
-            method: 'create', 
-            product: data.product
-        }) }, 500);
-
+  useEffect(() => {
+    function handleSelectCategory() {
+      if (params) {
+        setCategory(params.category);
+      }
     }
+    handleSelectCategory();
+  }, [params]);
 
-    const navigateToSelectCategory = () => navigation.navigate('StoreLoadCategory', { type: 'add' });
+  return (
+    <SafeAreaView style={styles.container}>
+      <Header title="novo produto" />
+      <ScrollView showsVerticalScrollIndicator={false} style={styles.column}>
+        <PreviewImage
+          image={image}
+          action={() => setModalActived(true)}
+          icon="image-outline"
+          loading={uploading}
+        />
 
-    useEffect(() => {
-        function handleSelectCategory() {
-            if(params) {
-                setCategory(params.category)
-            }
-        }    
-        handleSelectCategory();
-    },[params])
+        <Input
+          title="Nome"
+          name="name"
+          action={(e) => setName(e)}
+          maxLength={40}
+          error={alert}
+        />
+        <TextArea
+          title="Descrição"
+          name="description"
+          action={(e) => setDescription(e)}
+          maxLength={100}
+          error={alert}
+        />
+        <View
+          style={{
+            flexDirection: 'row',
+          }}
+        >
+          <Input
+            style={{
+              marginRight: 16,
+              width: 120,
+              height: 50,
+            }}
+            title="Preço"
+            name="price"
+            keyboard="numeric"
+            action={(e) => setPrice(e)}
+            maxLength={8}
+            error={alert}
+          />
 
-    return(
-        <SafeAreaView style={styles.container}>
-            <Header title='novo produto' />
-            <ScrollView showsVerticalScrollIndicator={false} style={styles.column}>
-                
-                <PreviewImage
-                    image={image}
-                    action={() => setModalActived(true)}
-                    icon='image-outline'
-                    loading={uploading}
-                />
+          <Select
+            style={{ flexGrow: 1 }}
+            title="Categoria"
+            name="category"
+            text={category.name}
+            action={navigateToSelectCategory}
+            error={alert}
+          />
+        </View>
 
-                <Input
-                    title={'Nome'}
-                    name={'name'}
-                    action={e => setName(e)}
-                    maxLength={40}
-                    error={alert}
-                />
-                <TextArea
-                    title={'Descrição'}
-                    name={'description'}
-                    action={e => setDescription(e)}
-                    maxLength={100}
-                    error={alert}
-                />
-                <View style={{
-                    flexDirection: 'row'
-                }}>
+        <Button
+          action={handleNewProduct}
+          title="Salvar"
+          status={status}
+          disabled={uploading}
+          disabledText="Carregando Imagem..."
+        />
+      </ScrollView>
 
-                    <Input
-                        style={{
-                            marginRight: 16,
-                            width: 120,
-                            height: 50
-                        }}
-                        title={'Preço'}
-                        name={'price'}
-                        keyboard={'numeric'}
-                        action={e => setPrice(e)}
-                        maxLength={8}
-                        error={alert}
-                    />
-
-                    <Select
-                        style={{ flexGrow: 1 }}
-                        title='Categoria'
-                        name={'category'}
-                        text={category.name}
-                        action={navigateToSelectCategory}
-                        error={alert}
-                    />
-                
-                </View>
-                
-                <Button 
-                    action={handleNewProduct} 
-                    title={'Salvar'} 
-                    status={status} 
-                    disabled={uploading} 
-                    disabledText='Carregando Imagem...'
-                />
-                      
-            </ScrollView>
-
-            <ChooseImageMode 
-                title='Escolha uma opção' 
-                actionClose={() => setModalActived(false)}
-                actionCamera={() => getImage('camera')}
-                actionGallery={() => getImage('gallery')}
-                active={modalActived}
-            />
-
-        </SafeAreaView>
-    )
+      <ChooseImageMode
+        title="Escolha uma opção"
+        actionClose={() => setModalActived(false)}
+        actionCamera={() => getImage('camera')}
+        actionGallery={() => getImage('gallery')}
+        active={modalActived}
+      />
+    </SafeAreaView>
+  );
 }
