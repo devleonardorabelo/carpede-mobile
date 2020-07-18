@@ -16,8 +16,6 @@ export default function Panel() {
   const whatsapp = format(store.whatsapp, WhatsappFormat);
   const navigation = useNavigation();
 
-  const navigate = (screen) => navigation.navigate(screen);
-
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar backgroundColor="#FDFDFD" barStyle="dark-content" />
@@ -31,25 +29,31 @@ export default function Panel() {
 
       <View style={styles.column}>
         <NavItem
-          action={() => navigate('StoreOrders')}
+          action={() => navigation.navigate('StoreOrders')}
           icon="bike"
           title="Pedidos"
           subtitle="Lista de pedidos ativos"
         />
         <NavItem
-          action={() => navigate('StoreProducts')}
+          action={() => navigation.navigate('StoreProducts')}
           icon="package-variant-closed"
           title="Produtos"
           subtitle="Lista de produtos"
         />
         <NavItem
-          action={() => navigate('StoreCategories')}
+          action={() => navigation.navigate('StoreCategories')}
           icon="tag-outline"
           title="Categorias"
           subtitle="Categoria dos pedidos"
         />
         <NavItem
-          action={() => navigate('StoreProfile')}
+          action={() => navigation.navigate('StoreOnSale')}
+          icon="sale"
+          title="Promoções"
+          subtitle="Produtos em promoção"
+        />
+        <NavItem
+          action={() => navigation.navigate('StoreProfile')}
           icon="account-circle-outline"
           title="Perfil"
           subtitle="Informações da Loja"

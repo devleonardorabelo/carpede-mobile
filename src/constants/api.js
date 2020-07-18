@@ -1,1 +1,1 @@
-export const API_DOMAIN = 'https://carpede-negocios.herokuapp.com';
+export const API_DOMAIN = 'http://main.carpede.com';

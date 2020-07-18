@@ -11,36 +11,36 @@ import { Header } from '../../../components/Header';
 import { Card } from '../../../components/Item';
 import { ActionButton, FilterButton } from '../../../components/Button';
 
-import imgCategory from '../../../assets/illustrations/tag.png';
+import imgSale from '../../../assets/illustrations/sale.png';
 
-export default function Categories() {
+export default function OnSale() {
   const navigation = useNavigation();
   const { params } = useRoute();
   let route = params;
 
-  const [categories, setCategories] = useState([]);
+  const [products, setProducts] = useState([]);
   const [sort, setSort] = useState(1);
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
 
-  async function loadCategories() {
+  async function loadOnSale() {
     if (loading) {
       return;
     }
 
-    if (total > 0 && categories.length === total) {
+    if (total > 0 && products.length === total) {
       return;
     }
 
     setLoading(true);
 
-    const { data, headers } = await apiReq.get('categories', {
-      params: { page },
+    const { data, headers } = await apiReq.get('products', {
+      params: { page, onSale: true },
     });
 
-    if (data.length) {
-      setCategories([...categories, ...data]);
+    if (data.products.length) {
+      setProducts([...products, ...data.products]);
       setTotal(headers['x-total-count']);
       setPage(page + 1);
     }
@@ -48,8 +48,8 @@ export default function Categories() {
     setLoading(false);
   }
 
-  function sortCategories() {
-    categories.sort((a, b) => {
+  function sortOnSale() {
+    products.sort((a, b) => {
       if (sort === 1) {
         if (a.name < b.name) {
           return 1;
@@ -68,35 +68,34 @@ export default function Categories() {
       }
       return 0;
     });
-    setCategories([...categories]);
+    setProducts([...products]);
   }
 
-  const navigateToEdit = (category) =>
-    navigation.navigate('StoreCategoryEdit', { category });
-
-  const navigateToNew = () => navigation.navigate('StoreCategoryNew');
+  const navigateToEditProduct = (product) =>
+    navigation.navigate('StoreProductEdit', { product, goBack: 'StoreOnSale' });
 
   useEffect(() => {
-    loadCategories();
+    loadOnSale();
     if (route) {
-      const index = categories.findIndex(
-        (obj) => obj._id === route.category._id
-      );
+      const index = products.findIndex((obj) => obj._id === route.product._id);
 
-      if (index !== -1 && route.method === 'destroy') {
-        categories.splice(index, 1);
-        setCategories([...categories]);
+      if (
+        (index !== -1 && route.method === 'destroy') ||
+        (index !== -1 && !route.product.onSale)
+      ) {
+        products.splice(index, 1);
+        setProducts([...products]);
         route = {};
         return;
       }
       if (index !== -1 && route.method === 'update') {
-        categories[index] = route.category;
-        setCategories([...categories]);
+        products[index] = route.product;
+        setProducts([...products]);
         route = {};
         return;
       }
       if (index === -1 && route.method === 'create') {
-        setCategories([...categories, route.category]);
+        setProducts([...products, route.product]);
         route = {};
       }
     }
@@ -104,15 +103,15 @@ export default function Categories() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header title="categorias">
+      <Header title="promoções">
         <FilterButton
           action={() => {
             if (sort !== 1) {
               setSort(1);
-              sortCategories();
+              sortOnSale();
             } else {
               setSort(-1);
-              sortCategories();
+              sortOnSale();
             }
           }}
           icon="filter-outline"
@@ -122,15 +121,15 @@ export default function Categories() {
 
       <FlatList
         style={styles.column}
-        data={categories}
+        data={products}
         keyExtractor={(item) => String(item._id)}
         showsVerticalScrollIndicator={false}
-        onEndReached={loadCategories}
+        onEndReached={loadOnSale}
         onEndReachedThreshold={0.3}
         numColumns={1}
         renderItem={({ item }) => (
           <Card
-            action={() => navigateToEdit(item)}
+            action={() => navigateToEditProduct(item)}
             image={item.image}
             title={item.name}
             price={item.price}
@@ -152,27 +151,30 @@ export default function Categories() {
                 <Card style={{ backgroundColor: '#F5F5F5', minHeight: 64 }} />
               </Skeleton>
             )}
-            {!loading && categories.length === 0 && (
+            {!loading && products.length === 0 && (
               <View style={{ paddingTop: 16 }}>
                 <Text style={[styles.title, { marginBottom: 10 }]}>
-                  Categoria
+                  Promoções
                 </Text>
                 <Text style={styles.text}>
-                  As categorias servem para organizar a lista dos seus produtos.
-                  Clique abaixo e adicione sua primeira categoria.
+                  Você ainda não tem nenhuma promoção. Adicione uma na sua lista
+                  de produtos clicando no item, definindo o valor promocional e
+                  ativando a opção &quot;Promoção&quot;.
                 </Text>
                 <Image
                   style={[styles.illustration, { marginTop: 64 }]}
-                  source={imgCategory}
+                  source={imgSale}
                 />
               </View>
             )}
           </>
         }
       />
-
       <View style={styles.absoluteBottomRight}>
-        <ActionButton icon="plus" action={navigateToNew} />
+        <ActionButton
+          icon="plus"
+          action={() => navigation.navigate('StoreProducts')}
+        />
       </View>
     </SafeAreaView>
   );

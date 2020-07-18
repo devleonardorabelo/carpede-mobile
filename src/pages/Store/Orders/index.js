@@ -18,9 +18,9 @@ import Skeleton from '../../../components/Skeleton';
 import { Header } from '../../../components/Header';
 import { CardOrder, Card } from '../../../components/Item';
 
-import imgDelivery from '../../../assets/illustrations/delivery.png';
-import imgSadFace from '../../../assets/illustrations/sad_face.png';
-import imgHappyFace from '../../../assets/illustrations/happy_face.png';
+import imgDelivery from '../../../assets/illustrations/fast-delivery.png';
+import imgSadFace from '../../../assets/illustrations/confused.png';
+import imgHappyFace from '../../../assets/illustrations/face.png';
 
 export default function Order() {
   const [orders, setOrders] = useState([]);

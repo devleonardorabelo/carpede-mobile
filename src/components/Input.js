@@ -1,6 +1,7 @@
 /* eslint-disable consistent-return */
 import React from 'react';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
+import MI from 'react-native-vector-icons/MaterialCommunityIcons';
 import styles from '../global';
 
 export const Input = ({
@@ -122,13 +123,15 @@ export const TextArea = ({
         <Text style={[styles.labelText, styles.textSemiBold]}>{title}</Text>
       </View>
       <TextInput
-        multiline
         numberOfLines={10}
         style={styles.textareaInput}
         defaultValue={defaultValue}
         onChangeText={action}
         placeholder={placeholder}
         maxLength={100 || maxLength}
+        multiline
+        returnKeyType="done"
+        blurOnSubmit
       />
       {err() && <Text style={styles.inputTextAlert}>{error.text}</Text>}
     </View>
@@ -172,3 +175,26 @@ export const Select = ({ error, name, style, action, title, text }) => {
     </TouchableOpacity>
   );
 };
+
+export const CheckBox = ({ checked, action, title }) => (
+  <TouchableOpacity style={styles.groupInput} onPress={action}>
+    <View style={styles.labelInput}>
+      <Text style={[styles.labelText, styles.textSemiBold]}>{title}</Text>
+    </View>
+    <View style={styles.checkBox}>
+      <View style={styles.checkSquare}>
+        <View
+          style={[
+            styles.square,
+            { backgroundColor: checked ? '#FF4700' : '#E2E2E2' },
+          ]}
+        >
+          <MI size={24} name="check" color={checked ? '#FFFFFF' : '#F5F5F5'} />
+        </View>
+      </View>
+      <Text style={[styles.text, { paddingTop: 8 }]}>
+        {checked ? 'Ativada' : 'Desativada'}
+      </Text>
+    </View>
+  </TouchableOpacity>
+);

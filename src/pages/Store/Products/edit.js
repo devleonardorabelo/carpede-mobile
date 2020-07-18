@@ -11,7 +11,7 @@ import { uploadImage } from '../../../services/uploadImage';
 import styles from '../../../global';
 import { Header } from '../../../components/Header';
 import { PreviewImage } from '../../../components/Image';
-import { Input, Select, TextArea } from '../../../components/Input';
+import { Input, Select, TextArea, CheckBox } from '../../../components/Input';
 import { Button, LinearButton } from '../../../components/Button';
 import { ChooseImageMode } from '../../../components/Modal';
 
@@ -28,6 +28,8 @@ export default function EditProduct() {
   const [description, setDescription] = useState(product.description);
   const [price, setPrice] = useState(product.price);
   const [category, setCategory] = useState(product.category);
+  const [onSale, setOnSale] = useState(product.onSale);
+  const [onSaleValue, setOnSaleValue] = useState(product.onSaleValue);
   const [alert, setAlert] = useState();
   const [status, setStatus] = useState(false);
   const [modalActived, setModalActived] = useState(false);
@@ -53,6 +55,8 @@ export default function EditProduct() {
       description,
       price: String(price),
       category,
+      onSale,
+      onSaleValue: !onSaleValue ? String(price) : String(onSaleValue),
     });
 
     if (data.error) {
@@ -63,14 +67,25 @@ export default function EditProduct() {
 
     setStatus('done');
 
-    setTimeout(
-      () =>
-        navigation.navigate('StoreProducts', {
-          method: 'update',
-          product: data.product,
-        }),
-      500
-    );
+    if (params && params.goBack) {
+      setTimeout(
+        () =>
+          navigation.navigate(`${params.goBack}`, {
+            method: 'update',
+            product: data.product,
+          }),
+        500
+      );
+    } else {
+      setTimeout(
+        () =>
+          navigation.navigate('StoreProducts', {
+            method: 'update',
+            product: data.product,
+          }),
+        500
+      );
+    }
   }
 
   async function handleDelete(id) {
@@ -171,6 +186,28 @@ export default function EditProduct() {
               text={category.name}
               action={navigateToSelectCategory}
               error={alert}
+            />
+          </View>
+          <View style={{ flexDirection: 'row' }}>
+            <Input
+              style={{
+                marginRight: 16,
+                width: 120,
+              }}
+              title="Oferta"
+              name="onsalevalue"
+              keyboard="numeric"
+              defaultValue={
+                product.onSaleValue === product.price ? '' : product.onSaleValue
+              }
+              action={(e) => setOnSaleValue(e)}
+              maxLength={8}
+              error={alert}
+            />
+            <CheckBox
+              action={() => setOnSale(!onSale)}
+              title="Promoção"
+              checked={onSale}
             />
           </View>
 

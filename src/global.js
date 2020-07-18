@@ -258,14 +258,31 @@ export default StyleSheet.create({
     borderColor: '#E2E2E2',
     borderRadius: 8,
     borderWidth: 1,
-    padding: 16,
+    paddingHorizontal: 16,
+    paddingTop: 16,
     fontSize: 16,
     fontFamily: 'Montserrat Medium',
     color: '#333333',
   },
+  checkBox: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingRight: 16,
+  },
+  checkSquare: {
+    padding: 8,
+    paddingTop: 16,
+  },
+  square: {
+    width: 28,
+    height: 28,
+    borderRadius: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   // MORE
   illustration: {
-    marginVertical: 20,
+    marginVertical: 40,
     height: 180,
     width: 180,
     alignSelf: 'center',

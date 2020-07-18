@@ -24,7 +24,7 @@ export default function Delivery() {
         longitude={order.location.coordinates[0]}
       />
       <View style={[styles.deliveryInfo]}>
-        <View>
+        <View style={{ flexShrink: 1 }}>
           <Text style={[styles.text, { color: '#FFFFFF' }]}>Endereço</Text>
           <Text style={[styles.textBold, { color: '#FFFFFF' }]}>
             {order.customer.address} {order.customer.complement}{' '}

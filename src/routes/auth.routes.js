@@ -13,6 +13,7 @@ import StoreCategoryNew from '../pages/Store/Categories/new';
 import StoreOrders from '../pages/Store/Orders';
 import StoreOrder from '../pages/Store/Orders/show';
 import StoreDelivery from '../pages/Store/Orders/delivery';
+import StoreOnSale from '../pages/Store/OnSale';
 
 const AuthStack = createStackNavigator();
 
@@ -48,6 +49,7 @@ const AuthRoutes = () => (
     <AuthStack.Screen name="StoreOrders" component={StoreOrders} />
     <AuthStack.Screen name="StoreOrder" component={StoreOrder} />
     <AuthStack.Screen name="StoreDelivery" component={StoreDelivery} />
+    <AuthStack.Screen name="StoreOnSale" component={StoreOnSale} />
   </AuthStack.Navigator>
 );
 export default AuthRoutes;

@@ -49,7 +49,7 @@ export const Button = ({
       setContent(<Text style={styles.textSemiBold}>{disabledText}</Text>);
       setIsDisabled(true);
     }
-  }, [status]);
+  }, [status, disabled]);
 
   return (
     <TouchableOpacity

@@ -18,8 +18,8 @@ import { Header } from '../../../components/Header';
 import { Card } from '../../../components/Item';
 import { ActionButton, FilterButton, Button } from '../../../components/Button';
 
-import imgCategory from '../../../assets/illustrations/category.png';
-import imgProduct from '../../../assets/illustrations/product.png';
+import imgCategory from '../../../assets/illustrations/tag.png';
+import imgProduct from '../../../assets/illustrations/buy.png';
 
 export default function Products() {
   const navigation = useNavigation();

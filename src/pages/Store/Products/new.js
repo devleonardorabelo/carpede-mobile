@@ -10,7 +10,7 @@ import { uploadImage } from '../../../services/uploadImage';
 import styles from '../../../global';
 import { Header } from '../../../components/Header';
 import { PreviewImage } from '../../../components/Image';
-import { Input, Select, TextArea } from '../../../components/Input';
+import { Input, Select, TextArea, CheckBox } from '../../../components/Input';
 import { Button } from '../../../components/Button';
 import { ChooseImageMode } from '../../../components/Modal';
 
@@ -25,6 +25,8 @@ export default function NewProduct() {
   const [category, setCategory] = useState({});
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
+  const [onSale, setOnSale] = useState(false);
+  const [onSaleValue, setOnSaleValue] = useState('');
   const [alert, setAlert] = useState('');
   const [status, setStatus] = useState(false);
   const [modalActived, setModalActived] = useState(false);
@@ -49,6 +51,8 @@ export default function NewProduct() {
       description,
       price,
       category,
+      onSale,
+      onSaleValue,
     });
 
     if (data.error) {
@@ -130,6 +134,29 @@ export default function NewProduct() {
             text={category.name}
             action={navigateToSelectCategory}
             error={alert}
+          />
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+          }}
+        >
+          <Input
+            style={{
+              marginRight: 16,
+              width: 120,
+            }}
+            title="Oferta"
+            name="onsalevalue"
+            keyboard="numeric"
+            action={(e) => setOnSaleValue(e)}
+            maxLength={8}
+            error={alert}
+          />
+          <CheckBox
+            action={() => setOnSale(!onSale)}
+            title="Promoção"
+            checked={onSale}
           />
         </View>
 

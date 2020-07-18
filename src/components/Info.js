@@ -96,7 +96,9 @@ export const InfoOrder = ({ data, children, action }) => {
         >
           <View>
             <Text style={styles.text}>Endereço</Text>
-            <Text style={styles.textBold}>
+            <Text
+              style={[styles.textBold, styles.textWrap, { maxWidth: '80%' }]}
+            >
               {data.customer.address} {data.customer.complement}{' '}
               {data.customer.number}
             </Text>
