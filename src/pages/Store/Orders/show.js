@@ -15,6 +15,7 @@ export default function Show() {
   const navigation = useNavigation();
   const { params } = useRoute();
   const { order } = params;
+  console.log(order);
 
   console.log(order.value);
 

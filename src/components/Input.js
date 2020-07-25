@@ -29,19 +29,21 @@ export const Input = ({
 
   return (
     <View style={[styles.groupInput, style]}>
-      <View style={styles.labelInput}>
-        <Text
-          style={[
-            styles.labelText,
-            styles.textSemiBold,
-            {
-              color: err() ? '#E63B2E' : '#333333',
-            },
-          ]}
-        >
-          {title}
-        </Text>
-      </View>
+      {title && (
+        <View style={styles.labelInput}>
+          <Text
+            style={[
+              styles.labelText,
+              styles.textSemiBold,
+              {
+                color: err() ? '#E63B2E' : '#333333',
+              },
+            ]}
+          >
+            {title}
+          </Text>
+        </View>
+      )}
       <TextInput
         style={[
           styles.textInput,
@@ -102,7 +104,6 @@ export const InputPassword = ({ error, name, title, action, placeholder }) => {
     </View>
   );
 };
-
 export const TextArea = ({
   error,
   name,

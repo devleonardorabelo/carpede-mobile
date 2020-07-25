@@ -6,7 +6,6 @@ const socket = socketio(API_DOMAIN, {
 });
 
 function notifyNewOrder(notifyStore) {
-  console.log('teste');
   socket.on('new-order', notifyStore);
 }
 

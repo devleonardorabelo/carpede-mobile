@@ -36,3 +36,9 @@ export const PhoneFormat = [
   { exactly: ' ' },
   { char: /\d/, repeat: 4 },
 ];
+
+export const HourFormat = [
+  { char: /\d/, repeat: 2 },
+  { exactly: ':' },
+  { char: /\d/, repeat: 2 },
+];
