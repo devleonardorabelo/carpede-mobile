@@ -1,7 +1,7 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { SafeAreaView, View, StatusBar } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-
+import SplashScreen from 'react-native-splash-screen';
 import { format } from '@buttercup/react-formatted-input';
 import AuthContext from '../../../contexts/auth';
 
@@ -15,6 +15,8 @@ export default function Panel() {
   const { store, signOut } = useContext(AuthContext);
   const whatsapp = format(store.whatsapp, WhatsappFormat);
   const navigation = useNavigation();
+
+  useEffect(() => SplashScreen.hide(), []);
 
   return (
     <SafeAreaView style={styles.container}>

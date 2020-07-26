@@ -31,9 +31,7 @@ export const InfoOrder = ({ data, children, action }) => {
       <View style={[styles.row, { marginBottom: 16 }]}>
         <View style={[styles.box, styles.column, { marginRight: 8 }]}>
           <Text style={styles.text}>Total</Text>
-          <Text style={styles.textBold}>
-            {treatPrice(data.value + data.fees.payment + data.fees.delivery)}
-          </Text>
+          <Text style={styles.textBold}>{treatPrice(data.value)}</Text>
         </View>
 
         {data.paymentMethod.money && (
@@ -47,10 +45,7 @@ export const InfoOrder = ({ data, children, action }) => {
             <View style={[styles.box, styles.column, { flexGrow: 1 }]}>
               <Text style={styles.text}>Troco</Text>
               <Text style={styles.textBold}>
-                {treatPrice(
-                  data.paymentMethod.money.amount -
-                    (data.value + data.fees.payment + data.fees.delivery)
-                )}
+                {treatPrice(data.paymentMethod.money.amount - data.value)}
               </Text>
             </View>
           </>

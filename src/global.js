@@ -1,10 +1,19 @@
 import { StyleSheet } from 'react-native';
 
+export const Colors = {
+  primary: '#4F8FDF',
+  secondary: '#45D9A6',
+  white: '#FDFDFD',
+  primaryGray: '#E2E2E2',
+  secondaryGray: '#F9F9F9',
+  tertiaryGray: '#DFDFDF',
+};
+
 export default StyleSheet.create({
   // STRUCTURE
   container: {
     flex: 1,
-    backgroundColor: '#FDFDFD',
+    backgroundColor: Colors.white,
   },
   header: {
     marginBottom: 16,
@@ -20,7 +29,7 @@ export default StyleSheet.create({
     paddingHorizontal: 16,
   },
   storeAvatar: {
-    backgroundColor: '#E2E2E2',
+    backgroundColor: Colors.primaryGray,
     width: 80,
     height: 80,
     borderRadius: 100,
@@ -50,7 +59,7 @@ export default StyleSheet.create({
   action: {
     flexDirection: 'row',
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: '#DFDFDF',
+    borderBottomColor: Colors.tertiaryGray,
     paddingVertical: 16,
   },
   iconAction: {
@@ -80,7 +89,7 @@ export default StyleSheet.create({
     borderRadius: 8,
     padding: 4,
     marginBottom: 4,
-    backgroundColor: '#F9F9F9',
+    backgroundColor: Colors.secondaryGray,
   },
   boxImage: {
     width: '24%',
@@ -163,7 +172,7 @@ export default StyleSheet.create({
   },
   textHide: {
     height: 16,
-    backgroundColor: '#E2E2E2',
+    backgroundColor: Colors.primaryGray,
     borderRadius: 8,
   },
   titleHide: {
@@ -171,7 +180,7 @@ export default StyleSheet.create({
     flexGrow: 1,
     marginTop: 4,
     borderRadius: 8,
-    backgroundColor: '#E2E2E2',
+    backgroundColor: Colors.primaryGray,
   },
 
   // BUTTONS
@@ -240,7 +249,7 @@ export default StyleSheet.create({
     fontSize: 16,
     fontFamily: 'Montserrat Medium',
     flexGrow: 1,
-    borderColor: '#E2E2E2',
+    borderColor: Colors.primaryGray,
     borderRadius: 8,
     borderWidth: 1,
     paddingHorizontal: 16,
@@ -250,7 +259,7 @@ export default StyleSheet.create({
     height: 50,
     fontSize: 16,
     flexGrow: 1,
-    borderColor: '#E2E2E2',
+    borderColor: Colors.primaryGray,
     borderRadius: 8,
     borderWidth: 1,
     paddingHorizontal: 16,
@@ -265,7 +274,7 @@ export default StyleSheet.create({
   textareaInput: {
     height: 80,
     textAlignVertical: 'top',
-    borderColor: '#E2E2E2',
+    borderColor: Colors.primaryGray,
     borderRadius: 8,
     borderWidth: 1,
     paddingHorizontal: 16,
@@ -311,7 +320,7 @@ export default StyleSheet.create({
     borderRadius: 8,
     marginBottom: 16,
     borderBottomWidth: 1,
-    borderBottomColor: '#DFDFDF',
+    borderBottomColor: Colors.tertiaryGray,
   },
   orderCheckout: {
     backgroundColor: '#FFFFFF',

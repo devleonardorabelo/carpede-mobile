@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { TouchableOpacity, Text, ActivityIndicator } from 'react-native';
 import Gradient from 'react-native-linear-gradient';
 import MI from 'react-native-vector-icons/MaterialCommunityIcons';
-import styles from '../global';
+import styles, { Colors } from '../global';
 
 export const Button = ({
   title,
@@ -12,7 +12,7 @@ export const Button = ({
   style,
   action,
 }) => {
-  const [color, setColor] = useState(['#FF7239', '#FF4700']);
+  const [color, setColor] = useState([Colors.secondary, Colors.primary]);
   const [content, setContent] = useState(
     <Text style={styles.textSemiBold}>{title}</Text>
   );
@@ -21,12 +21,12 @@ export const Button = ({
   useEffect(() => {
     switch (status) {
       case 'loading':
-        setColor(['#FF4700', '#FF7239']);
+        setColor([Colors.primary, Colors.secondary]);
         setContent(<ActivityIndicator size="large" color="#FFFFFF" />);
         setIsDisabled(true);
         break;
       case 'done':
-        setColor(['#FF7239', '#FF4700']);
+        setColor([Colors.secondary, Colors.primary]);
         setContent(
           <Text style={[styles.textSemiBold, { color: '#FFFFFF' }]}>
             Feito!
@@ -35,7 +35,7 @@ export const Button = ({
         setIsDisabled(true);
         break;
       default:
-        setColor(['#FF7239', '#FF4700']);
+        setColor([Colors.secondary, Colors.primary]);
         setContent(
           <Text style={[styles.textSemiBold, { color: '#FFFFFF' }]}>
             {title}
@@ -60,7 +60,7 @@ export const Button = ({
     >
       <Gradient
         start={{ x: 0.0, y: 0.25 }}
-        end={{ x: 0.5, y: 1.0 }}
+        end={{ x: 1.0, y: 1.0 }}
         colors={color}
         style={styles.button}
       >
@@ -82,7 +82,7 @@ export const ActionButton = ({ action, disabled, style, icon }) => (
     <Gradient
       start={{ x: 0.0, y: 0.25 }}
       end={{ x: 0.5, y: 1.0 }}
-      colors={['#FF7239', '#FF4700']}
+      colors={[Colors.secondary, Colors.primary]}
       style={[styles.actionButton, style]}
     >
       <MI name={icon} size={32} color="#FFFFFF" />

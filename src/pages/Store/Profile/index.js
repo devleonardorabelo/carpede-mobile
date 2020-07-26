@@ -123,7 +123,11 @@ export default function Profile() {
 
   useEffect(() => {
     checkHour(opening.raw, 'opening');
+    if (opening.formatted === '00:00')
+      setOpening({ raw: '0001', formatted: '00:01' });
     checkHour(closure.raw, 'closure');
+    if (closure.formatted === '00:00')
+      setClosure({ raw: '2359', formatted: '23:59' });
   }, [opening, closure]);
 
   if (!loadedPage) return <Loading />;

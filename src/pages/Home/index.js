@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Text, Image, SafeAreaView, View, StatusBar } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import SplashScreen from 'react-native-splash-screen';
 import styles from '../../global';
 import { Button, ButtonTransparent } from '../../components/Button';
 
@@ -10,6 +11,8 @@ export default function Home() {
   const navigation = useNavigation();
   const navigateToSignup = () => navigation.navigate('Signup');
   const navigateToSignin = () => navigation.navigate('Signin');
+
+  useEffect(() => SplashScreen.hide(), []);
 
   return (
     <SafeAreaView>
