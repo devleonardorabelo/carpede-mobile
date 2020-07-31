@@ -22,13 +22,15 @@ export const Button = ({
     switch (status) {
       case 'loading':
         setColor([Colors.primary, Colors.secondary]);
-        setContent(<ActivityIndicator size="large" color="#FFFFFF" />);
+        setContent(
+          <ActivityIndicator size="large" color={Colors.primaryWhite} />
+        );
         setIsDisabled(true);
         break;
       case 'done':
         setColor([Colors.secondary, Colors.primary]);
         setContent(
-          <Text style={[styles.textSemiBold, { color: '#FFFFFF' }]}>
+          <Text style={[styles.textSemiBold, { color: Colors.primaryWhite }]}>
             Feito!
           </Text>
         );
@@ -37,7 +39,7 @@ export const Button = ({
       default:
         setColor([Colors.secondary, Colors.primary]);
         setContent(
-          <Text style={[styles.textSemiBold, { color: '#FFFFFF' }]}>
+          <Text style={[styles.textSemiBold, { color: Colors.primaryWhite }]}>
             {title}
           </Text>
         );
@@ -45,7 +47,7 @@ export const Button = ({
     }
 
     if (disabled === true) {
-      setColor(['#F5F5F5', '#F5F5F5']);
+      setColor([Colors.tertiaryGray, Colors.tertiaryGray]);
       setContent(<Text style={styles.textSemiBold}>{disabledText}</Text>);
       setIsDisabled(true);
     }
@@ -72,7 +74,12 @@ export const Button = ({
 
 export const ButtonTransparent = ({ action, icon, title }) => (
   <TouchableOpacity style={styles.buttonTransparent} onPress={action}>
-    <MI style={{ paddingRight: 8 }} name={icon} size={16} color="#333333" />
+    <MI
+      style={{ paddingRight: 8 }}
+      name={icon}
+      size={16}
+      color={Colors.primaryGray}
+    />
     <Text style={styles.textSemiBold}>{title}</Text>
   </TouchableOpacity>
 );
@@ -85,20 +92,20 @@ export const ActionButton = ({ action, disabled, style, icon }) => (
       colors={[Colors.secondary, Colors.primary]}
       style={[styles.actionButton, style]}
     >
-      <MI name={icon} size={32} color="#FFFFFF" />
+      <MI name={icon} size={32} color={Colors.primaryWhite} />
     </Gradient>
   </TouchableOpacity>
 );
 
 export const LinearButton = ({ style, action, icon, color }) => (
   <TouchableOpacity style={style} onPress={action}>
-    <MI name={icon} size={32} color={color || '#333333'} />
+    <MI name={icon} size={32} color={color || Colors.primaryBlack} />
   </TouchableOpacity>
 );
 
 export const FilterButton = ({ action, icon, subIcon }) => (
   <TouchableOpacity onPress={action}>
-    <MI name={icon} size={32} color="#333333" />
+    <MI name={icon} size={32} color={Colors.primaryGray} />
     <MI
       style={{
         position: 'absolute',
@@ -107,7 +114,7 @@ export const FilterButton = ({ action, icon, subIcon }) => (
       }}
       name={subIcon}
       size={24}
-      color="#FF4700"
+      color={Colors.primary}
     />
   </TouchableOpacity>
 );

@@ -13,7 +13,7 @@ import Gradient from 'react-native-linear-gradient';
 import { ScrollView } from 'react-native-gesture-handler';
 import apiReq from '../../../services/reqToken';
 
-import styles from '../../../global';
+import styles, { Colors } from '../../../global';
 import Skeleton from '../../../components/Skeleton';
 import { Header } from '../../../components/Header';
 import { CardOrder, Card } from '../../../components/Item';
@@ -93,17 +93,17 @@ export default function Order() {
             <Gradient
               style={[styles.buttonTag, { marginLeft: 16 }]}
               start={{ x: 0.0, y: 0.25 }}
-              end={{ x: 0.5, y: 1.0 }}
+              end={{ x: 1.0, y: 1.0 }}
               colors={
                 status === 'waiting'
-                  ? ['#FF7239', '#FF4700']
-                  : ['#E2E2E2', '#E2E2E2']
+                  ? [Colors.secondary, Colors.primary]
+                  : [Colors.primaryGray, Colors.primaryGray]
               }
             >
               <Text
                 style={[
                   styles.textSemiBold,
-                  status === 'waiting' && { color: '#FFFFFF' },
+                  status === 'waiting' && { color: Colors.primaryWhite },
                 ]}
               >
                 Aguardando
@@ -114,17 +114,17 @@ export default function Order() {
             <Gradient
               style={styles.buttonTag}
               start={{ x: 0.0, y: 0.25 }}
-              end={{ x: 0.5, y: 1.0 }}
+              end={{ x: 1.0, y: 1.0 }}
               colors={
                 status === 'done'
-                  ? ['#FF7239', '#FF4700']
-                  : ['#E2E2E2', '#E2E2E2']
+                  ? [Colors.secondary, Colors.primary]
+                  : [Colors.primaryGray, Colors.primaryGray]
               }
             >
               <Text
                 style={[
                   styles.textSemiBold,
-                  status === 'done' && { color: '#FFFFFF' },
+                  status === 'done' && { color: Colors.primaryWhite },
                 ]}
               >
                 Entregues
@@ -135,17 +135,17 @@ export default function Order() {
             <Gradient
               style={[styles.buttonTag, { marginRight: 16 }]}
               start={{ x: 0.0, y: 0.25 }}
-              end={{ x: 0.5, y: 1.0 }}
+              end={{ x: 1.0, y: 1.0 }}
               colors={
                 status === 'lost'
-                  ? ['#FF7239', '#FF4700']
-                  : ['#E2E2E2', '#E2E2E2']
+                  ? [Colors.secondary, Colors.primary]
+                  : [Colors.primaryGray, Colors.primaryGray]
               }
             >
               <Text
                 style={[
                   styles.textSemiBold,
-                  status === 'lost' && { color: '#FFFFFF' },
+                  status === 'lost' && { color: Colors.primaryWhite },
                 ]}
               >
                 Perdidos
@@ -178,16 +178,36 @@ export default function Order() {
           <>
             {loading && (
               <Skeleton>
-                <Card style={{ backgroundColor: '#F5F5F5', minHeight: 50 }} />
-                <Card style={{ backgroundColor: '#F5F5F5', minHeight: 50 }} />
-                <Card style={{ backgroundColor: '#F5F5F5', minHeight: 50 }} />
-                <Card style={{ backgroundColor: '#F5F5F5', minHeight: 50 }} />
-                <Card style={{ backgroundColor: '#F5F5F5', minHeight: 50 }} />
-                <Card style={{ backgroundColor: '#F5F5F5', minHeight: 50 }} />
-                <Card style={{ backgroundColor: '#F5F5F5', minHeight: 50 }} />
-                <Card style={{ backgroundColor: '#F5F5F5', minHeight: 50 }} />
-                <Card style={{ backgroundColor: '#F5F5F5', minHeight: 50 }} />
-                <Card style={{ backgroundColor: '#F5F5F5', minHeight: 50 }} />
+                <Card
+                  style={{ backgroundColor: Colors.fourthGray, minHeight: 50 }}
+                />
+                <Card
+                  style={{ backgroundColor: Colors.fourthGray, minHeight: 50 }}
+                />
+                <Card
+                  style={{ backgroundColor: Colors.fourthGray, minHeight: 50 }}
+                />
+                <Card
+                  style={{ backgroundColor: Colors.fourthGray, minHeight: 50 }}
+                />
+                <Card
+                  style={{ backgroundColor: Colors.fourthGray, minHeight: 50 }}
+                />
+                <Card
+                  style={{ backgroundColor: Colors.fourthGray, minHeight: 50 }}
+                />
+                <Card
+                  style={{ backgroundColor: Colors.fourthGray, minHeight: 50 }}
+                />
+                <Card
+                  style={{ backgroundColor: Colors.fourthGray, minHeight: 50 }}
+                />
+                <Card
+                  style={{ backgroundColor: Colors.fourthGray, minHeight: 50 }}
+                />
+                <Card
+                  style={{ backgroundColor: Colors.fourthGray, minHeight: 50 }}
+                />
               </Skeleton>
             )}
             {!loading &&

@@ -10,25 +10,25 @@ import {
 import MI from 'react-native-vector-icons/MaterialCommunityIcons';
 import { PanGestureHandler, State } from 'react-native-gesture-handler';
 import Gradient from 'react-native-linear-gradient';
-import styles from '../global';
+import styles, { Colors } from '../global';
 
 import { regexMed, treatPrice } from '../utils/treatString';
 
 import { InfoOrder } from './Info';
 
-import cardImage from '../assets/illustrations/repeat_food.png';
+import cardImage from '../assets/illustrations/face.png';
 
 export const NavItem = ({ action, icon, title, subtitle }) => (
   <TouchableOpacity style={styles.action} onPress={action}>
     <View style={styles.iconAction}>
-      <MI name={icon} size={32} color="#333333" />
+      <MI name={icon} size={32} color={Colors.primaryBlack} />
     </View>
     <View style={{ flexGrow: 1, justifyContent: 'center' }}>
       <Text style={styles.textSemiBold}>{title}</Text>
       <Text style={styles.subtitleTextAction}>{subtitle}</Text>
     </View>
     <View style={styles.arrowAction}>
-      <MI name="chevron-right" size={32} color="#666666" />
+      <MI name="chevron-right" size={32} color={Colors.secondaryBlack} />
     </View>
   </TouchableOpacity>
 );
@@ -56,13 +56,13 @@ export const Avatar = ({
           style={[
             styles.storeAvatar,
             {
-              backgroundColor: '#E2E2E2',
+              backgroundColor: Colors.secondaryGray,
               justifyContent: 'center',
               alignItems: 'center',
             },
           ]}
         >
-          <ActivityIndicator size="small" color="#FF4700" />
+          <ActivityIndicator size="small" color={Colors.secondary} />
         </View>
       )}
       {isChangeable && !loading && (
@@ -77,13 +77,19 @@ export const Avatar = ({
               },
             ]}
           >
-            <MI name={icon} color="#fff" size={32} />
+            <MI name={icon} color={Colors.primaryWhite} size={32} />
           </View>
         </View>
       )}
     </TouchableOpacity>
 
-    <View style={{ flexGrow: 1, paddingLeft: 16 }}>
+    <View
+      style={{
+        flexGrow: 1,
+        paddingLeft: 16,
+        justifyContent: 'center',
+      }}
+    >
       <View style={{ flexDirection: 'row' }}>
         {title === '' || title === undefined ? (
           <View style={styles.titleHide} />
@@ -95,6 +101,7 @@ export const Avatar = ({
               {
                 marginBottom: 0,
                 fontSize: 30 - title.length * 0.3,
+                lineHeight: 30 - title.length * 0.3,
               },
             ]}
           >
@@ -108,7 +115,7 @@ export const Avatar = ({
         <View style={{ flexDirection: 'row' }}>
           <MI
             name="whatsapp"
-            color="#333333"
+            color={Colors.primaryBlack}
             size={16}
             style={{ marginTop: 3, marginRight: 4 }}
           />
@@ -158,7 +165,10 @@ export const CardOrder = ({ action, title, address, status, price, time }) => {
           {treatPrice(price)}
         </Text>
         <Text
-          style={[styles.textBold, { alignSelf: 'flex-end', color: '#FF4700' }]}
+          style={[
+            styles.textBold,
+            { alignSelf: 'flex-end', color: Colors.primary },
+          ]}
         >
           {time}
         </Text>
@@ -274,16 +284,19 @@ export const Checkout = ({ data, action }) => {
             },
           ]}
         >
-          <Gradient colors={['#FF4700', '#FF4700']}>
+          <Gradient colors={[Colors.primary, Colors.primary]}>
             <TouchableOpacity
               style={styles.orderDropButton}
               onPress={sendInfoClicked}
             >
               {wasClicked ? (
                 <View style={{ alignItems: 'center' }}>
-                  <MI name="menu-up" color="#FFFFFF" size={32} />
+                  <MI name="menu-up" color={Colors.primaryWhite} size={32} />
                   <Text
-                    style={[styles.text, { marginTop: -10, color: '#FFFFFF' }]}
+                    style={[
+                      styles.text,
+                      { marginTop: -10, color: Colors.primaryWhite },
+                    ]}
                   >
                     Segure e arraste pra cima
                   </Text>
@@ -291,7 +304,7 @@ export const Checkout = ({ data, action }) => {
               ) : (
                 <>
                   <View>
-                    <MI name="bike" color="#FFFFFF" size={32} />
+                    <MI name="bike" color={Colors.primaryWhite} size={32} />
                   </View>
                 </>
               )}
@@ -299,13 +312,15 @@ export const Checkout = ({ data, action }) => {
           </Gradient>
         </Animated.View>
 
-        <View style={[styles.orderHeader, { backgroundColor: '#FFFFFF' }]}>
+        <View
+          style={[styles.orderHeader, { backgroundColor: Colors.primaryWhite }]}
+        >
           <TouchableOpacity
             style={styles.orderDropButton}
             onPress={sendInfoClicked}
           >
             <View>
-              <MI name="chevron-down" color="#FF4700" size={32} />
+              <MI name="chevron-down" color={Colors.primary} size={32} />
             </View>
           </TouchableOpacity>
         </View>

@@ -2,7 +2,7 @@
 import React from 'react';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import MI from 'react-native-vector-icons/MaterialCommunityIcons';
-import styles from '../global';
+import styles, { Colors } from '../global';
 
 export const Input = ({
   error,
@@ -36,7 +36,7 @@ export const Input = ({
               styles.labelText,
               styles.textSemiBold,
               {
-                color: err() ? '#E63B2E' : '#333333',
+                color: err() ? Colors.error : Colors.primaryBlack,
               },
             ]}
           >
@@ -48,7 +48,7 @@ export const Input = ({
         style={[
           styles.textInput,
           {
-            borderColor: err() ? '#E63B2E' : '#E2E2E2',
+            borderColor: err() ? Colors.error : Colors.primaryGray,
             borderWidth: err() ? 2 : 1,
           },
         ]}
@@ -79,7 +79,7 @@ export const InputPassword = ({ error, name, title, action, placeholder }) => {
             styles.labelText,
             styles.textSemiBold,
             {
-              color: err() ? '#E63B2E' : '#333333',
+              color: err() ? Colors.error : Colors.primaryBlack,
             },
           ]}
         >
@@ -90,7 +90,7 @@ export const InputPassword = ({ error, name, title, action, placeholder }) => {
         style={[
           styles.textInput,
           {
-            borderColor: err() ? '#E63B2E' : '#E2E2E2',
+            borderColor: err() ? Colors.error : Colors.primaryGray,
             borderWidth: err() ? 2 : 1,
           },
         ]}
@@ -153,7 +153,7 @@ export const Select = ({ error, name, style, action, title, text }) => {
             styles.labelText,
             styles.textSemiBold,
             {
-              color: err() ? '#E63B2E' : '#333333',
+              color: err() ? Colors.error : Colors.primaryBlack,
             },
           ]}
         >
@@ -164,7 +164,7 @@ export const Select = ({ error, name, style, action, title, text }) => {
         style={[
           styles.textInput,
           {
-            borderColor: err() ? '#E63B2E' : '#E2E2E2',
+            borderColor: err() ? Colors.error : Colors.primaryGray,
             borderWidth: err() ? 2 : 1,
             textAlignVertical: 'center',
           },
@@ -187,10 +187,14 @@ export const CheckBox = ({ checked, action, title }) => (
         <View
           style={[
             styles.square,
-            { backgroundColor: checked ? '#FF4700' : '#E2E2E2' },
+            { backgroundColor: checked ? Colors.primary : Colors.primaryGray },
           ]}
         >
-          <MI size={24} name="check" color={checked ? '#FFFFFF' : '#F5F5F5'} />
+          <MI
+            size={24}
+            name="check"
+            color={checked ? Colors.primaryWhite : Colors.tertiaryGray}
+          />
         </View>
       </View>
       <Text style={[styles.text, { paddingTop: 8 }]}>

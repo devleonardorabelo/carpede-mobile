@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 
-import styles from '../global';
+import styles, { Colors } from '../global';
 import { LinearButton, ActionButton } from './Button';
 
 export const AlertCenter = ({ active, title, actionClose, text }) => {
@@ -24,8 +24,10 @@ export const AlertCenter = ({ active, title, actionClose, text }) => {
 
 export const AlertNotification = ({ show, title, text }) => (
   <View style={[styles.alertBottom, { bottom: show ? 0 : -999 }]}>
-    <Text style={[styles.textBold, { color: '#FFFFFF' }]}>{title}</Text>
-    <Text style={[styles.text, { color: '#FFFFFF' }]}>{text}</Text>
+    <Text style={[styles.textBold, { color: Colors.primaryWhite }]}>
+      {title}
+    </Text>
+    <Text style={[styles.text, { color: Colors.primaryWhite }]}>{text}</Text>
   </View>
 );
 

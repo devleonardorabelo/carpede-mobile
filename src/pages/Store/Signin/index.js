@@ -18,7 +18,7 @@ export default function Signin() {
   const [alert, setAlert] = useState();
   const [status, setStatus] = useState();
 
-  const navigation = useNavigation();
+  const { navigate } = useNavigation();
   const { sign } = useContext(AuthContext);
 
   async function handleSignin() {
@@ -52,15 +52,13 @@ export default function Signin() {
     getTokenDevice();
   }, []);
 
-  const navigateToSignup = () => navigation.navigate('Signup');
-
   return (
     <SafeAreaView style={styles.container}>
       <Header title="entrar" />
       <View style={styles.column}>
-        <Text style={[styles.title, { marginBottom: 0 }]}>Entrar</Text>
-        <Text style={[styles.subtitle, { marginBottom: 16 }]}>
-          Gerenciar o seu negócio
+        <Text style={[styles.title]}>Entre</Text>
+        <Text style={[styles.subtitle, { marginBottom: 24 }]}>
+          Gerencie o seu negócio
         </Text>
         <Input
           title="Email"
@@ -79,7 +77,7 @@ export default function Signin() {
         />
         <Button action={handleSignin} title="Entrar" status={status} />
         <ButtonTransparent
-          action={navigateToSignup}
+          action={() => navigate('Signup')}
           title="Quero criar uma conta"
           icon="account-plus-outline"
         />

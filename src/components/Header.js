@@ -2,7 +2,7 @@ import React from 'react';
 import { TouchableOpacity, View, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import MI from 'react-native-vector-icons/MaterialCommunityIcons';
-import styles from '../global';
+import styles, { Colors } from '../global';
 
 export const Header = ({ title, children }) => {
   const { goBack } = useNavigation();
@@ -11,7 +11,7 @@ export const Header = ({ title, children }) => {
     <View style={styles.header}>
       <View>
         <TouchableOpacity onPress={goBack}>
-          <MI name="arrow-left" size={32} color="#333333" />
+          <MI name="arrow-left" size={32} color={Colors.primaryBlack} />
         </TouchableOpacity>
       </View>
       {title && (
@@ -28,7 +28,7 @@ export const CustomHeader = ({ action, icon, children }) => (
   <View style={styles.header}>
     <View>
       <TouchableOpacity onPress={action}>
-        <MI name={icon} size={32} color="#333333" />
+        <MI name={icon} size={32} color={Colors.primaryBlack} />
       </TouchableOpacity>
     </View>
     <View>{children}</View>
@@ -53,7 +53,7 @@ export function TransparentHeader({ children }) {
     >
       <View>
         <TouchableOpacity onPress={goBack}>
-          <MI name="arrow-left" size={32} color="#333333" />
+          <MI name="arrow-left" size={32} color={Colors.primaryBlack} />
         </TouchableOpacity>
       </View>
       <View

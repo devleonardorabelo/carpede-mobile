@@ -3,17 +3,21 @@ import { StyleSheet } from 'react-native';
 export const Colors = {
   primary: '#4F8FDF',
   secondary: '#45D9A6',
-  white: '#FDFDFD',
+  primaryWhite: '#FDFDFD',
+  primaryBlack: '#333333',
+  secondaryBlack: '#666666',
   primaryGray: '#E2E2E2',
   secondaryGray: '#F9F9F9',
   tertiaryGray: '#DFDFDF',
+  fourthGray: '#F5F5F5',
+  error: '#E63B2E',
 };
 
 export default StyleSheet.create({
   // STRUCTURE
   container: {
     flex: 1,
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.primaryWhite,
   },
   header: {
     marginBottom: 16,
@@ -80,7 +84,7 @@ export default StyleSheet.create({
     fontFamily: 'Montserrat Light',
     fontSize: 16,
     marginTop: -2,
-    color: '#666666',
+    color: Colors.secondaryBlack,
   },
   // BOX
   box: {
@@ -102,7 +106,7 @@ export default StyleSheet.create({
     flexGrow: 1,
   },
   alertBottom: {
-    backgroundColor: '#FF4700',
+    backgroundColor: Colors.primary,
     position: 'absolute',
     bottom: 0,
     left: 0,
@@ -139,48 +143,50 @@ export default StyleSheet.create({
     fontFamily: 'Montserrat Bold',
     fontSize: 32,
     lineHeight: 34,
-    color: '#333333',
+    color: Colors.primaryBlack,
   },
   subtitle: {
-    color: '#666666',
-    fontSize: 18,
+    color: Colors.secondaryBlack,
+    fontSize: 22,
     fontFamily: 'Montserrat Medium',
   },
   text: {
     fontSize: 16,
     fontFamily: 'Montserrat Medium',
-    color: '#333333',
+    color: Colors.primaryBlack,
   },
   textSemiBold: {
     fontSize: 16,
     fontFamily: 'Montserrat SemiBold',
-    color: '#333333',
+    color: Colors.primaryBlack,
   },
   textBold: {
     fontSize: 16,
     fontFamily: 'Montserrat Bold',
-    color: '#333333',
+    color: Colors.primaryBlack,
   },
   textLight: {
     fontSize: 16,
     fontFamily: 'Montserrat Bold',
-    color: '#333333',
+    color: Colors.primaryBlack,
   },
   textWrap: {
     flex: 1,
     flexWrap: 'wrap',
   },
   textHide: {
-    height: 16,
+    height: 18,
     backgroundColor: Colors.primaryGray,
     borderRadius: 8,
+    opacity: 0.5,
   },
   titleHide: {
-    height: 16,
+    height: 32,
     flexGrow: 1,
     marginTop: 4,
     borderRadius: 8,
     backgroundColor: Colors.primaryGray,
+    opacity: 0.5,
   },
 
   // BUTTONS
@@ -211,7 +217,7 @@ export default StyleSheet.create({
     paddingHorizontal: 16,
   },
   buttonFloat: {
-    backgroundColor: '#FF4700',
+    backgroundColor: Colors.primary,
     width: 64,
     height: 64,
     borderRadius: 8,
@@ -237,7 +243,7 @@ export default StyleSheet.create({
     marginBottom: -10,
     zIndex: 999,
     paddingHorizontal: 8,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: Colors.primaryWhite,
   },
   iconInput: {
     paddingHorizontal: 16,
@@ -253,7 +259,7 @@ export default StyleSheet.create({
     borderRadius: 8,
     borderWidth: 1,
     paddingHorizontal: 16,
-    color: '#333333',
+    color: Colors.primaryBlack,
   },
   hourInput: {
     height: 50,
@@ -281,7 +287,7 @@ export default StyleSheet.create({
     paddingTop: 16,
     fontSize: 16,
     fontFamily: 'Montserrat Medium',
-    color: '#333333',
+    color: Colors.primaryBlack,
   },
   checkBox: {
     flexDirection: 'row',
@@ -323,11 +329,11 @@ export default StyleSheet.create({
     borderBottomColor: Colors.tertiaryGray,
   },
   orderCheckout: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: Colors.primaryWhite,
     position: 'absolute',
     right: 0,
     left: 0,
-    shadowColor: '#000000',
+    shadowColor: Colors.primaryBlack,
     shadowOffset: {
       width: 0,
       height: 4,
@@ -351,7 +357,7 @@ export default StyleSheet.create({
   },
   deliveryInfo: {
     flexDirection: 'row',
-    backgroundColor: '#FF4700',
+    backgroundColor: Colors.primary,
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: 16,
@@ -368,7 +374,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
   modal: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: Colors.primaryWhite,
     padding: 16,
     maxWidth: '92%',
   },

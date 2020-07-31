@@ -32,6 +32,8 @@ export default function Profile() {
   const [opening, setOpening] = useState({});
   const [closure, setClosure] = useState({});
   const [averageDeliveryTime, setAverageDeliveryTime] = useState('0');
+  const [delivery, setDelivery] = useState(0);
+  const [payment, setPayment] = useState(0);
 
   const [uploading, setUploading] = useState(false);
   const [alert, setAlert] = useState();
@@ -56,10 +58,12 @@ export default function Profile() {
     if (data.avatar) setAvatar({ uri: data.avatar });
     setName(data.name);
     setWhatsapp(format(data.whatsapp, WhatsappFormat));
-    setPhone(format(data.phone, PhoneFormat));
+    if (data.phone) setPhone(format(data.phone, PhoneFormat));
     setOpening(format(data.operation.opening, HourFormat));
     setClosure(format(data.operation.closure, HourFormat));
     setAverageDeliveryTime(data.averageDeliveryTime);
+    setDelivery(data.fees.delivery);
+    setPayment(data.fees.payment);
     setLoadedPage(true);
   }
 
@@ -75,6 +79,8 @@ export default function Profile() {
         opening: opening.formatted,
         closure: closure.formatted,
       },
+      payment: String(payment),
+      delivery: String(delivery),
       averageDeliveryTime,
     });
 
@@ -168,7 +174,7 @@ export default function Profile() {
           defaultValue={phone.formatted}
           action={(number) => maskNumber(number, 'phone')}
           keyboard="numeric"
-          maxLength={16}
+          maxLength={14}
         />
 
         <View style={{ flexDirection: 'row', flexShrink: 1 }}>
@@ -200,6 +206,29 @@ export default function Profile() {
             keyboard="numeric"
             maxLength={3}
             style={{ flexGrow: 1 }}
+            error={alert}
+          />
+        </View>
+
+        <View style={{ flexDirection: 'row', flexShrink: 1 }}>
+          <Input
+            title="Taxa de Entrega"
+            name="delivery"
+            defaultValue={delivery}
+            action={(e) => setDelivery(e)}
+            keyboard="numeric"
+            maxLength={5}
+            style={{ marginRight: 8, flexGrow: 1 }}
+            error={alert}
+          />
+          <Input
+            title="Taxa de Pagamento"
+            name="payment"
+            defaultValue={payment}
+            action={(e) => setPayment(e)}
+            keyboard="numeric"
+            maxLength={10}
+            style={{ marginLeftt: 8, flexGrow: 1 }}
             error={alert}
           />
         </View>

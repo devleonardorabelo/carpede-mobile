@@ -5,8 +5,7 @@ import { useRoute, useNavigation } from '@react-navigation/native';
 import apiReq from '../../../services/reqToken';
 
 import { treatPrice } from '../../../utils/treatString';
-
-import styles from '../../../global';
+import styles, { Colors } from '../../../global';
 import { CardItem, Checkout } from '../../../components/Item';
 import { Header } from '../../../components/Header';
 import { LinearButton } from '../../../components/Button';
@@ -15,6 +14,15 @@ export default function Show() {
   const navigation = useNavigation();
   const { params } = useRoute();
   const { order } = params;
+
+  async function handleNotify() {
+    await apiReq.post('orders/notify', {
+      title: 'Saiu para entrega',
+      body: `O seu pedido #${order.order_id.toUpperCase()} está a caminho!`,
+      to: 'customer',
+      whatsapp: order.customer.whatsapp,
+    });
+  }
 
   async function handleUpdate() {
     Alert.alert(
@@ -26,7 +34,24 @@ export default function Show() {
           onPress: () => {},
           style: 'cancel',
         },
-        // { text: 'Entregar e notificar', onPress: () => { return }, style: 'cancel' },
+        {
+          text: 'Entregar e notificar',
+          onPress: async () => {
+            const { data } = await apiReq.post('orders/edit', {
+              id: order._id,
+              status: 'done',
+              date: order.date,
+            });
+            if (data) {
+              handleNotify();
+              navigation.navigate('StoreOrders', {
+                method: 'update',
+                order: data.order,
+              });
+            }
+          },
+          style: 'cancel',
+        },
         {
           text: 'Entregar',
           onPress: async () => {
@@ -81,7 +106,7 @@ export default function Show() {
 
       <View style={[styles.column, { marginBottom: 0 }]}>
         <Text style={styles.subtitle}>Detalhes do pedido:</Text>
-        <Text style={[styles.textBold, { color: '#FF4700' }]}>
+        <Text style={[styles.textBold, { color: Colors.primary }]}>
           {order.time} -{order.status === 'waiting' && ` Aguardando entrega`}
           {order.status === 'done' && ` Pedido entregue`}
         </Text>

@@ -3,7 +3,7 @@ import { SafeAreaView, View, Text, Linking } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import Clipboard from '@react-native-community/clipboard';
 import { LocationMap } from '../../../components/Map';
-import styles from '../../../global';
+import styles, { Colors } from '../../../global';
 
 import { TransparentHeader } from '../../../components/Header';
 import { LinearButton } from '../../../components/Button';
@@ -25,8 +25,10 @@ export default function Delivery() {
       />
       <View style={[styles.deliveryInfo]}>
         <View style={{ flexShrink: 1 }}>
-          <Text style={[styles.text, { color: '#FFFFFF' }]}>Endereço</Text>
-          <Text style={[styles.textBold, { color: '#FFFFFF' }]}>
+          <Text style={[styles.text, { color: Colors.primaryWhite }]}>
+            Endereço
+          </Text>
+          <Text style={[styles.textBold, { color: Colors.primaryWhite }]}>
             {order.customer.address} {order.customer.complement}{' '}
             {order.customer.number}
           </Text>
@@ -35,13 +37,13 @@ export default function Delivery() {
           <LinearButton
             style={{ padding: 8 }}
             icon="navigation"
-            color="#FFFFFF"
+            color={Colors.primaryWhite}
             action={() => Linking.openURL(location)}
           />
           <LinearButton
             style={{ padding: 8 }}
             icon="content-copy"
-            color="#FFFFFF"
+            color={Colors.primaryWhite}
             action={() => {
               Clipboard.setString(location);
               setCopied(true);
@@ -51,7 +53,7 @@ export default function Delivery() {
           <LinearButton
             style={{ padding: 8 }}
             icon="whatsapp"
-            color="#FFFFFF"
+            color={Colors.primaryWhite}
             action={() => Linking.openURL(`whatsapp://send?text=${location}`)}
           />
         </View>

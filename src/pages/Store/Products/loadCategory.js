@@ -5,7 +5,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 
 import apiReq from '../../../services/reqToken';
 
-import styles from '../../../global';
+import styles, { Colors } from '../../../global';
 import { Header } from '../../../components/Header';
 import Skeleton from '../../../components/Skeleton';
 import { Card } from '../../../components/Item';
@@ -112,16 +112,36 @@ export default function Categories() {
         ListEmptyComponent={
           loading && (
             <Skeleton>
-              <Card style={{ backgroundColor: '#F5F5F5', minHeight: 64 }} />
-              <Card style={{ backgroundColor: '#F5F5F5', minHeight: 64 }} />
-              <Card style={{ backgroundColor: '#F5F5F5', minHeight: 64 }} />
-              <Card style={{ backgroundColor: '#F5F5F5', minHeight: 64 }} />
-              <Card style={{ backgroundColor: '#F5F5F5', minHeight: 64 }} />
-              <Card style={{ backgroundColor: '#F5F5F5', minHeight: 64 }} />
-              <Card style={{ backgroundColor: '#F5F5F5', minHeight: 64 }} />
-              <Card style={{ backgroundColor: '#F5F5F5', minHeight: 64 }} />
-              <Card style={{ backgroundColor: '#F5F5F5', minHeight: 64 }} />
-              <Card style={{ backgroundColor: '#F5F5F5', minHeight: 64 }} />
+              <Card
+                style={{ backgroundColor: Colors.fourthGray, minHeight: 64 }}
+              />
+              <Card
+                style={{ backgroundColor: Colors.fourthGray, minHeight: 64 }}
+              />
+              <Card
+                style={{ backgroundColor: Colors.fourthGray, minHeight: 64 }}
+              />
+              <Card
+                style={{ backgroundColor: Colors.fourthGray, minHeight: 64 }}
+              />
+              <Card
+                style={{ backgroundColor: Colors.fourthGray, minHeight: 64 }}
+              />
+              <Card
+                style={{ backgroundColor: Colors.fourthGray, minHeight: 64 }}
+              />
+              <Card
+                style={{ backgroundColor: Colors.fourthGray, minHeight: 64 }}
+              />
+              <Card
+                style={{ backgroundColor: Colors.fourthGray, minHeight: 64 }}
+              />
+              <Card
+                style={{ backgroundColor: Colors.fourthGray, minHeight: 64 }}
+              />
+              <Card
+                style={{ backgroundColor: Colors.fourthGray, minHeight: 64 }}
+              />
             </Skeleton>
           )
         }

@@ -12,7 +12,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import Gradient from 'react-native-linear-gradient';
 import apiReq from '../../../services/reqToken';
 
-import styles from '../../../global';
+import styles, { Colors } from '../../../global';
 import Skeleton from '../../../components/Skeleton';
 import { Header } from '../../../components/Header';
 import { Card } from '../../../components/Item';
@@ -152,17 +152,17 @@ export default function Products() {
               <Gradient
                 style={styles.buttonTag}
                 start={{ x: 0.0, y: 0.25 }}
-                end={{ x: 0.5, y: 1.0 }}
+                end={{ x: 1.0, y: 1.0 }}
                 colors={
                   category._id === item._id
-                    ? ['#FF7239', '#FF4700']
-                    : ['#E2E2E2', '#E2E2E2']
+                    ? [Colors.secondary, Colors.primary]
+                    : [Colors.primaryGray, Colors.primaryGray]
                 }
               >
                 <Text
                   style={[
                     styles.textSemiBold,
-                    category._id === item._id && { color: '#FFFFFF' },
+                    category._id === item._id && { color: Colors.primaryWhite },
                   ]}
                 >
                   {item.name}
@@ -176,17 +176,17 @@ export default function Products() {
                 <Gradient
                   style={[styles.buttonTag, { marginLeft: 16 }]}
                   start={{ x: 0.0, y: 0.25 }}
-                  end={{ x: 0.5, y: 1.0 }}
+                  end={{ x: 1.0, y: 1.0 }}
                   colors={
                     !category._id
-                      ? ['#FF7239', '#FF4700']
-                      : ['#E2E2E2', '#E2E2E2']
+                      ? [Colors.secondary, Colors.primary]
+                      : [Colors.primaryGray, Colors.primaryGray]
                   }
                 >
                   <Text
                     style={[
                       styles.textSemiBold,
-                      !category._id && { color: '#FFFFFF' },
+                      !category._id && { color: Colors.primaryWhite },
                     ]}
                   >
                     Todos
@@ -200,19 +200,34 @@ export default function Products() {
               {loading && (
                 <Skeleton style={{ flexDirection: 'row' }}>
                   <TouchableOpacity
-                    style={[styles.buttonTag, { backgroundColor: '#E2E2E2' }]}
+                    style={[
+                      styles.buttonTag,
+                      { backgroundColor: Colors.primaryGray },
+                    ]}
                   />
                   <TouchableOpacity
-                    style={[styles.buttonTag, { backgroundColor: '#E2E2E2' }]}
+                    style={[
+                      styles.buttonTag,
+                      { backgroundColor: Colors.primaryGray },
+                    ]}
                   />
                   <TouchableOpacity
-                    style={[styles.buttonTag, { backgroundColor: '#E2E2E2' }]}
+                    style={[
+                      styles.buttonTag,
+                      { backgroundColor: Colors.primaryGray },
+                    ]}
                   />
                   <TouchableOpacity
-                    style={[styles.buttonTag, { backgroundColor: '#E2E2E2' }]}
+                    style={[
+                      styles.buttonTag,
+                      { backgroundColor: Colors.primaryGray },
+                    ]}
                   />
                   <TouchableOpacity
-                    style={[styles.buttonTag, { backgroundColor: '#E2E2E2' }]}
+                    style={[
+                      styles.buttonTag,
+                      { backgroundColor: Colors.primaryGray },
+                    ]}
                   />
                 </Skeleton>
               )}
@@ -224,7 +239,7 @@ export default function Products() {
                 style={[
                   styles.buttonTag,
                   {
-                    borderColor: '#FF4700',
+                    borderColor: Colors.primary,
                     borderWidth: 3,
                     backgroundColor: 'none',
                     marginRight: 16,
@@ -232,7 +247,7 @@ export default function Products() {
                 ]}
                 onPress={navigateToNewCategory}
               >
-                <Text style={[styles.textSemiBold, { color: '#FF4700' }]}>
+                <Text style={[styles.textSemiBold, { color: Colors.primary }]}>
                   + Adicionar
                 </Text>
               </TouchableOpacity>
@@ -261,16 +276,36 @@ export default function Products() {
           <>
             {loading && (
               <Skeleton>
-                <Card style={{ backgroundColor: '#F5F5F5', minHeight: 84 }} />
-                <Card style={{ backgroundColor: '#F5F5F5', minHeight: 84 }} />
-                <Card style={{ backgroundColor: '#F5F5F5', minHeight: 84 }} />
-                <Card style={{ backgroundColor: '#F5F5F5', minHeight: 84 }} />
-                <Card style={{ backgroundColor: '#F5F5F5', minHeight: 84 }} />
-                <Card style={{ backgroundColor: '#F5F5F5', minHeight: 84 }} />
-                <Card style={{ backgroundColor: '#F5F5F5', minHeight: 84 }} />
-                <Card style={{ backgroundColor: '#F5F5F5', minHeight: 84 }} />
-                <Card style={{ backgroundColor: '#F5F5F5', minHeight: 84 }} />
-                <Card style={{ backgroundColor: '#F5F5F5', minHeight: 84 }} />
+                <Card
+                  style={{ backgroundColor: Colors.fourthGray, minHeight: 84 }}
+                />
+                <Card
+                  style={{ backgroundColor: Colors.fourthGray, minHeight: 84 }}
+                />
+                <Card
+                  style={{ backgroundColor: Colors.fourthGray, minHeight: 84 }}
+                />
+                <Card
+                  style={{ backgroundColor: Colors.fourthGray, minHeight: 84 }}
+                />
+                <Card
+                  style={{ backgroundColor: Colors.fourthGray, minHeight: 84 }}
+                />
+                <Card
+                  style={{ backgroundColor: Colors.fourthGray, minHeight: 84 }}
+                />
+                <Card
+                  style={{ backgroundColor: Colors.fourthGray, minHeight: 84 }}
+                />
+                <Card
+                  style={{ backgroundColor: Colors.fourthGray, minHeight: 84 }}
+                />
+                <Card
+                  style={{ backgroundColor: Colors.fourthGray, minHeight: 84 }}
+                />
+                <Card
+                  style={{ backgroundColor: Colors.fourthGray, minHeight: 84 }}
+                />
               </Skeleton>
             )}
             {!loading && categories.length === 0 && page !== 1 ? (

@@ -1,5 +1,6 @@
 import React from 'react';
 import { SafeAreaView, ActivityIndicator } from 'react-native';
+import { Colors } from '../global';
 
 export default function Loading() {
   return (
@@ -8,10 +9,10 @@ export default function Loading() {
         flex: 1,
         justifyContent: 'center',
         alignContent: 'center',
-        backgroundColor: '#fff',
+        backgroundColor: Colors.primaryWhite,
       }}
     >
-      <ActivityIndicator size="large" color="#266EE8" />
+      <ActivityIndicator size="large" color={Colors.primary} />
     </SafeAreaView>
   );
 }

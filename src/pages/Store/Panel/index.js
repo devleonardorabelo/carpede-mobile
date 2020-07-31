@@ -7,7 +7,7 @@ import AuthContext from '../../../contexts/auth';
 
 import { WhatsappFormat } from '../../../utils/treatString';
 
-import styles from '../../../global';
+import styles, { Colors } from '../../../global';
 import { NavItem, Avatar } from '../../../components/Item';
 import { CustomHeader } from '../../../components/Header';
 
@@ -20,7 +20,10 @@ export default function Panel() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar backgroundColor="#FDFDFD" barStyle="dark-content" />
+      <StatusBar
+        backgroundColor={Colors.primaryWhite}
+        barStyle="dark-content"
+      />
       <CustomHeader icon="logout" action={signOut} />
 
       <Avatar

@@ -2,7 +2,7 @@ import React from 'react';
 import MapView, { Marker } from 'react-native-maps';
 import MI from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import styles from '../global';
+import styles, { Colors } from '../global';
 
 export const LocationMap = ({ latitude, longitude }) => {
   const currentRegion = {
@@ -15,7 +15,7 @@ export const LocationMap = ({ latitude, longitude }) => {
   return (
     <MapView style={styles.map} initialRegion={currentRegion} minZoomLevel={15}>
       <Marker coordinate={{ latitude, longitude }}>
-        <MI name="map-marker" color="#FF4700" size={48} />
+        <MI name="map-marker" color={Colors.primary} size={48} />
       </Marker>
     </MapView>
   );

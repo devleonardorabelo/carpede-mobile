@@ -2,21 +2,22 @@ import React, { useEffect } from 'react';
 import { Text, Image, SafeAreaView, View, StatusBar } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import SplashScreen from 'react-native-splash-screen';
-import styles from '../../global';
+import styles, { Colors } from '../../global';
 import { Button, ButtonTransparent } from '../../components/Button';
 
 import imageHome from '../../assets/illustrations/home.png';
 
 export default function Home() {
-  const navigation = useNavigation();
-  const navigateToSignup = () => navigation.navigate('Signup');
-  const navigateToSignin = () => navigation.navigate('Signin');
+  const { navigate } = useNavigation();
 
   useEffect(() => SplashScreen.hide(), []);
 
   return (
     <SafeAreaView>
-      <StatusBar backgroundColor="#FDFDFD" barStyle="dark-content" />
+      <StatusBar
+        backgroundColor={Colors.primaryWhite}
+        barStyle="dark-content"
+      />
       <View
         style={[
           styles.column,
@@ -24,7 +25,7 @@ export default function Home() {
             paddingTop: 40,
             justifyContent: 'space-between',
             height: '100%',
-            backgroundColor: '#FDFDFD',
+            backgroundColor: Colors.primaryWhite,
           },
         ]}
       >
@@ -35,10 +36,13 @@ export default function Home() {
           <Text style={[styles.subtitle, { marginBottom: 32 }]}>
             Proporcione aos seus clientes um atendimento personalizado
           </Text>
-          <Button title="Quero criar a minha Loja" action={navigateToSignup} />
+          <Button
+            title="Quero criar a minha Loja"
+            action={() => navigate('Signup')}
+          />
           <ButtonTransparent
             title="Já tenho a minha Loja"
-            action={navigateToSignin}
+            action={() => navigate('Signin')}
           />
         </View>
 

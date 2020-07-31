@@ -8,10 +8,10 @@
     </style>
     <style name="SplashScreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:statusBarColor">
-            @color/secondary
+            #FDFDFD
         </item>
         <item name="android:navigationBarColor">
-            @color/primary
+            #FDFDFD
         </item>
     </style>
 
