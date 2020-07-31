@@ -42,3 +42,5 @@ export const HourFormat = [
   { exactly: ':' },
   { char: /\d/, repeat: 2 },
 ];
+
+export const PriceFormt = [{ awa }];
